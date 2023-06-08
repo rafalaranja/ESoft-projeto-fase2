@@ -1,30 +1,25 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class PaginaInicial extends JFrame {
+public class Eventos extends JFrame{
     private JPanel painelPrincipal;
-    private JButton eventosButton;
-    private JButton atletasButton;
-    private JButton eventosButton1;
     private JButton atletasButton1;
     private JButton estatisticasButton;
     private JButton sobreButton;
+    private JButton eventosButton1;
     private JLabel nomeUser;
     private JLabel fotoUser;
-
+    private JList list1;
 
     public static void main(String[] args) {
-        PaginaInicial paginaInicial = new PaginaInicial();
-        paginaInicial.setVisible(true);
+        Eventos eventos = new Eventos();
+        eventos.setVisible(true);
     }
 
-
-    public PaginaInicial() {
+    public Eventos() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(painelPrincipal);
         pack();
-
-
 
         // colocar a foto e nome do user logado
 
@@ -37,32 +32,17 @@ public class PaginaInicial extends JFrame {
 
 
         // Listeners dos botões
-
-
-        eventosButton.addActionListener(e -> {
-            Eventos eventos = new Eventos();
-            eventos.setVisible(true);
-            dispose();
-        });
-        /*
-        atletasButton.addActionListener(e -> {
-            Atletas atletas = new Atletas();
-            atletas.setVisible(true);
-            dispose();
-        });
-
-        estatisticasButton.addActionListener(e -> {
-            Estatisticas estatisticas = new Estatisticas();
-            estatisticas.setVisible(true);
-            dispose();
-        });
-        */
-
         sobreButton.addActionListener(e -> {
             Sobre sobre = new Sobre();
             sobre.setVisible(true);
             dispose();
         });
-    }
 
+
+        //mostra a lista de eventos
+        String[] eventos = {"Evento 1", "Evento 2", "Evento 3"};
+
+        list1.setListData(eventos);
+    }
 }
+
