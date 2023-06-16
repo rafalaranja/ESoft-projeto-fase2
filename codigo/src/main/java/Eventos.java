@@ -1,5 +1,9 @@
 import javax.swing.*;
+import javax.swing.table.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 
 public class Eventos extends JFrame{
     private JPanel painelPrincipal;
@@ -9,7 +13,10 @@ public class Eventos extends JFrame{
     private JButton eventosButton1;
     private JLabel nomeUser;
     private JLabel fotoUser;
-    private JList list1;
+    private JTable table1;
+    private JButton importarEventosButton;
+    private JButton adicionarEventosButton;
+
 
     public static void main(String[] args) {
         Eventos eventos = new Eventos();
@@ -39,10 +46,36 @@ public class Eventos extends JFrame{
         });
 
 
-        //mostra a lista de eventos
-        String[] eventos = {"Evento 1", "Evento 2", "Evento 3"};
+        // Criar uma matriz de eventos (supondo que você já tenha os eventos em uma matriz/lista)
+        String[][] eventos = {{"Evento 1", "Data 1"}, {"Evento 2", "Data 2"}, {"Evento 3", "Data 3"}};
 
-        list1.setListData(eventos);
+        // Criar um array de nomes das colunas
+        String[] colunas = {"Evento", "Data"};
+
+        // Criar um DefaultTableModel com os eventos e colunas
+        DefaultTableModel modelo = new DefaultTableModel(eventos, colunas){
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false; // Impede a tabela de ser editada pelo utilizador
+        }
+    };
+
+        table1.setModel(modelo);
+
+
+        adicionarEventosButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //ir para adicionar eventos
+                AdicionarEventos adicionarEventos = new AdicionarEventos();
+                adicionarEventos.setVisible(true);
+                dispose();
+            }
+        });
     }
+
+
+
+
 }
 
