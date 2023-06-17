@@ -5,7 +5,7 @@ public class PaginaInicial extends JFrame {
     private JPanel painelPrincipal;
     private JButton eventosButton;
     private JButton atletasButton;
-    private JButton eventosButton1;
+    private JButton eventosButton2;
     private JButton atletasButton1;
     private JButton estatisticasButton;
     private JButton sobreButton;
@@ -40,8 +40,8 @@ public class PaginaInicial extends JFrame {
 
 
         eventosButton.addActionListener(e -> {
-            Eventos eventos = new Eventos();
-            eventos.setVisible(true);
+            PaginaEventos paginaEventos = new PaginaEventos();
+            paginaEventos.setVisible(true);
             dispose();
         });
         /*

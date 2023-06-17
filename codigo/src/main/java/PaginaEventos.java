@@ -3,14 +3,17 @@ import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 
-public class Eventos extends JFrame{
+public class PaginaEventos extends JFrame{
     private JPanel painelPrincipal;
     private JButton atletasButton1;
     private JButton estatisticasButton;
     private JButton sobreButton;
-    private JButton eventosButton1;
+    private JButton eventosButton;
     private JLabel nomeUser;
     private JLabel fotoUser;
     private JTable table1;
@@ -19,11 +22,29 @@ public class Eventos extends JFrame{
 
 
     public static void main(String[] args) {
-        Eventos eventos = new Eventos();
-        eventos.setVisible(true);
+        PaginaEventos paginaEventos = new PaginaEventos();
+        paginaEventos.setVisible(true);
     }
 
-    public Eventos() {
+    private void carregarEventos() {
+        // Ler os eventos do arquivo "eventos.txt" e atualizar o modelo da tabela
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("eventos.txt"));
+            String linha;
+            DefaultTableModel modelo = (DefaultTableModel) table1.getModel();
+            modelo.setRowCount(0); // Limpar os dados existentes na tabela
+            while ((linha = reader.readLine()) != null) {
+                String[] dados = linha.split(":");
+                modelo.addRow(dados);
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public PaginaEventos() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(painelPrincipal);
         pack();
@@ -50,7 +71,8 @@ public class Eventos extends JFrame{
         String[][] eventos = {{"Evento 1", "Data 1"}, {"Evento 2", "Data 2"}, {"Evento 3", "Data 3"}};
 
         // Criar um array de nomes das colunas
-        String[] colunas = {"Evento", "Data"};
+        String[] colunas = {"Nome", "Arte Marcial", "Data Inicial"};
+
 
         // Criar um DefaultTableModel com os eventos e colunas
         DefaultTableModel modelo = new DefaultTableModel(eventos, colunas){
@@ -60,7 +82,10 @@ public class Eventos extends JFrame{
         }
     };
 
+
+
         table1.setModel(modelo);
+        carregarEventos(); // Carregar os eventos do arquivo "eventos.txt"
 
 
         adicionarEventosButton.addActionListener(new ActionListener() {
