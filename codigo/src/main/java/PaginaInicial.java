@@ -53,6 +53,7 @@ public class PaginaInicial extends JFrame {
             paginaEventos.setVisible(true);
             dispose();
         });
+
         /*
         atletasButton.addActionListener(e -> {
             Atletas atletas = new Atletas();

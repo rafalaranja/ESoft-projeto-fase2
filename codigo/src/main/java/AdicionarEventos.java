@@ -62,18 +62,14 @@ public class AdicionarEventos extends JFrame{
         }
 
 
-         dataInicialTextField.setFormatterFactory(new DefaultFormatterFactory(formatter));
+        dataInicialTextField.setFormatterFactory(new DefaultFormatterFactory(formatter));
 
         dataFinalTextField.setFormatterFactory(new DefaultFormatterFactory(formatter));
-
-
-
-
-
 
         adicionarButton.addActionListener(e -> {
             //Adicionar evento
             guardarEvento();
+            JOptionPane.showMessageDialog(null, "Evento adicionado com sucesso!");
             PaginaEventos paginaEventos = new PaginaEventos();
             paginaEventos.setVisible(true);
             dispose();
