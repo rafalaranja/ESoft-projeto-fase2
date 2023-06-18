@@ -10,17 +10,10 @@ public class Login extends JFrame{
 
     public static String nomeUser;
 
-    public static void main(String[] args){
-        Login login = new Login();
-        login.setVisible(true);
-    }
-
     public Login(){
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(painelLogin);
         pack();
-
-
 
         entrarButton.addActionListener(new ActionListener() {
             @Override

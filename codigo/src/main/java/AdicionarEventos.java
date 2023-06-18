@@ -19,11 +19,6 @@ public class AdicionarEventos extends JFrame{
     private JFormattedTextField dataFinalTextField;
     private JTextArea textArea1;
 
-    public static void main(String[] args) {
-        AdicionarEventos adicionarEventos = new AdicionarEventos();
-        adicionarEventos.setVisible(true);
-    }
-
     private void guardarEvento() {
         String nome = nomeTextField.getText();
         String arteMarcial = arteMarcialTextField.getText();
@@ -54,10 +49,6 @@ public class AdicionarEventos extends JFrame{
             sobre.setVisible(true);
             dispose();
         });
-
-
-
-
 
 
         // Criar um MaskFormatter para o formato de data (dd/MM/yyyy)

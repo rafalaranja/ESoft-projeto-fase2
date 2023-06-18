@@ -19,12 +19,7 @@ public class PaginaEventos extends JFrame{
     private JTable table1;
     private JButton importarEventosButton;
     private JButton adicionarEventosButton;
-
-
-    public static void main(String[] args) {
-        PaginaEventos paginaEventos = new PaginaEventos();
-        paginaEventos.setVisible(true);
-    }
+    private JButton loginButtonSide;
 
     private void carregarEventos() {
         // Ler os eventos do arquivo "eventos.txt" e atualizar o modelo da tabela
@@ -51,7 +46,20 @@ public class PaginaEventos extends JFrame{
 
         // colocar a foto e nome do user logado
 
-        nomeUser.setText(Login.nomeUser); //mostrar o nome do user logado
+        String username = "Guest";
+
+        if (Login.nomeUser != null){
+            nomeUser.setText(Login.nomeUser); //mostrar o nome do user logado
+        } else {
+            nomeUser.setText(username);
+        }
+
+        if (nomeUser.getText().equals("Guest")){
+            adicionarEventosButton.setVisible(false);
+            importarEventosButton.setVisible(false);
+        } else {
+            loginButtonSide.setVisible(false);
+        }
 
         ImageIcon imagemIcon = new ImageIcon("fotos/profile.png"); // Caminho para a imagem
         Image imagem = imagemIcon.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT); // Definir tamanho da imagem
@@ -66,6 +74,11 @@ public class PaginaEventos extends JFrame{
             dispose();
         });
 
+        loginButtonSide.addActionListener(e -> {
+            Login login = new Login();
+            login.setVisible(true);
+            dispose();
+        });
 
         // Criar uma matriz de eventos (supondo que você já tenha os eventos em uma matriz/lista)
         String[][] eventos = {{"Evento 1", "Data 1"}, {"Evento 2", "Data 2"}, {"Evento 3", "Data 3"}};
@@ -76,13 +89,11 @@ public class PaginaEventos extends JFrame{
 
         // Criar um DefaultTableModel com os eventos e colunas
         DefaultTableModel modelo = new DefaultTableModel(eventos, colunas){
-        @Override
-        public boolean isCellEditable(int row, int column) {
-            return false; // Impede a tabela de ser editada pelo utilizador
-        }
-    };
-
-
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // Impede a tabela de ser editada pelo utilizador
+            }
+        };
 
         table1.setModel(modelo);
         carregarEventos(); // Carregar os eventos do arquivo "eventos.txt"

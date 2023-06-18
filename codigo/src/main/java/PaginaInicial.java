@@ -5,12 +5,13 @@ public class PaginaInicial extends JFrame {
     private JPanel painelPrincipal;
     private JButton eventosButton;
     private JButton atletasButton;
-    private JButton eventosButton2;
-    private JButton atletasButton1;
-    private JButton estatisticasButton;
-    private JButton sobreButton;
+    private JButton eventosButtonSide;
+    private JButton atletasButtonSide;
+    private JButton estatisticasButtonSide;
+    private JButton sobreButtonSide;
     private JLabel nomeUser;
     private JLabel fotoUser;
+    private JButton loginButtonSide;
 
 
     public static void main(String[] args) {
@@ -24,11 +25,19 @@ public class PaginaInicial extends JFrame {
         setContentPane(painelPrincipal);
         pack();
 
-
+        String username = "Guest";
 
         // colocar a foto e nome do user logado
 
-        nomeUser.setText(Login.nomeUser); //mostrar o nome do user logado
+        if (Login.nomeUser != null){
+            nomeUser.setText(Login.nomeUser); //mostrar o nome do user logado
+        } else {
+            nomeUser.setText(username);
+        }
+
+        if (!nomeUser.getText().equals("Guest")){
+            loginButtonSide.setVisible(false);
+        }
 
         ImageIcon imagemIcon = new ImageIcon("fotos/profile.png"); // Caminho para a imagem
         Image imagem = imagemIcon.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT); // Definir tamanho da imagem
@@ -51,14 +60,20 @@ public class PaginaInicial extends JFrame {
             dispose();
         });
 
-        estatisticasButton.addActionListener(e -> {
+        estatisticasButtonSide.addActionListener(e -> {
             Estatisticas estatisticas = new Estatisticas();
             estatisticas.setVisible(true);
             dispose();
         });
         */
 
-        sobreButton.addActionListener(e -> {
+        loginButtonSide.addActionListener(e -> {
+            Login login = new Login();
+            login.setVisible(true);
+            dispose();
+        });
+
+        sobreButtonSide.addActionListener(e -> {
             Sobre sobre = new Sobre();
             sobre.setVisible(true);
             dispose();
