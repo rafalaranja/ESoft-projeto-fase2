@@ -17,6 +17,8 @@ public class VerificadorLogin {
                 if (nome.equals(nomeSalvo) && pass.equals(passSalva)) {
                     bufferedReader.close();
                     return true;
+                } else {
+                    return false;
                 }
             }
 
