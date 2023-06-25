@@ -2,9 +2,11 @@ import javax.swing.*;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 import java.awt.*;
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
-public class AdicionarEventos extends JFrame{
+public class AdicionarEventos extends JFrame {
     private JButton atletasButton1;
     private JButton estatisticasButton;
     private JButton sobreButton;
@@ -14,19 +16,43 @@ public class AdicionarEventos extends JFrame{
     private JPanel painelPrincipal;
     private JTextField nomeTextField;
     private JButton adicionarButton;
-    private JTextField arteMarcialTextField;
+    private JComboBox<String> arteMarcialComboBox; // Define o tipo genérico da JComboBox
     private JFormattedTextField dataInicialTextField;
     private JFormattedTextField dataFinalTextField;
     private JTextArea textArea1;
 
-    private void guardarEvento() {
+    // Restringir as opções na JComboBox
+    private DefaultComboBoxModel<String> arteMarcialComboBoxModel = new DefaultComboBoxModel<>(
+            new String[]{"BJJ", "Judo", "Luta Greco-Romana", "Luta Livre-Olímpica", "Submission Grappling"});
+
+    //Impedir que sejam colocados caracteres inválidos na data
+    private boolean tryParseDate(String dateString) {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        dateFormat.setLenient(false); // Desativa o modo leniente para restringir datas inválidas
+        try {
+            dateFormat.parse(dateString);
+            return true;
+        } catch (ParseException e) {
+            return false;
+        }
+    }
+
+
+
+    private int guardarEvento() {
         String nome = nomeTextField.getText();
-        String arteMarcial = arteMarcialTextField.getText();
+        String arteMarcial = (String) arteMarcialComboBox.getSelectedItem();
         String dataInicial = dataInicialTextField.getText();
         String dataFinal = dataFinalTextField.getText();
         String descricao = textArea1.getText();
-        Evento evento = new Evento(nome, arteMarcial, dataInicial, dataFinal, descricao);
-        Evento.guardarEvento(evento);
+
+        if (!tryParseDate(dataInicial) || !tryParseDate(dataFinal)) {
+            return 0; // Abortar o processo de salvar o evento
+        }else {
+            Evento evento = new Evento(nome, arteMarcial, dataInicial, dataFinal, descricao);
+            Evento.guardarEvento(evento);
+            return 1; // Evento guardado com sucesso
+        }
     }
 
     public AdicionarEventos() {
@@ -35,7 +61,6 @@ public class AdicionarEventos extends JFrame{
         pack();
 
         // colocar a foto e nome do user logado
-
         nomeUser.setText(Login.nomeUser); //mostrar o nome do user logado
 
         ImageIcon imagemIcon = new ImageIcon("fotos/profile.png"); // Caminho para a imagem
@@ -50,6 +75,8 @@ public class AdicionarEventos extends JFrame{
             dispose();
         });
 
+        // Definir o modelo personalizado para a JComboBox arteMarcialComboBox
+        arteMarcialComboBox.setModel(arteMarcialComboBoxModel);
 
         // Criar um MaskFormatter para o formato de data (dd/MM/yyyy)
         MaskFormatter formatter;
@@ -62,19 +89,18 @@ public class AdicionarEventos extends JFrame{
         }
 
 
-        dataInicialTextField.setFormatterFactory(new DefaultFormatterFactory(formatter));
 
+        dataInicialTextField.setFormatterFactory(new DefaultFormatterFactory(formatter));
         dataFinalTextField.setFormatterFactory(new DefaultFormatterFactory(formatter));
 
         adicionarButton.addActionListener(e -> {
             //Adicionar evento
             guardarEvento();
-            JOptionPane.showMessageDialog(null, "Evento adicionado com sucesso!");
+            if (guardarEvento() == 1) { JOptionPane.showMessageDialog(null, "Evento adicionado com sucesso!"); }
+            else { JOptionPane.showMessageDialog(null, "Data inválida! Insira no formato dd/MM/yyyy."); }
             PaginaEventos paginaEventos = new PaginaEventos();
             paginaEventos.setVisible(true);
             dispose();
         });
     }
 }
-
-
