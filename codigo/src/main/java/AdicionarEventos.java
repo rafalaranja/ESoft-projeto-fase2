@@ -37,6 +37,15 @@ public class AdicionarEventos extends JFrame {
         }
     }
 
+    // Verificar se o nome é válido
+    private boolean isValidName(String name) {
+        return name.matches("[a-zA-Z]+");
+    }
+
+    //Verificar se descricao é válida
+    private boolean isValidDescription(String description) {
+        return description.length() <= 255;
+    }
 
 
     private int guardarEvento() {
@@ -45,14 +54,29 @@ public class AdicionarEventos extends JFrame {
         String dataInicial = dataInicialTextField.getText();
         String dataFinal = dataFinalTextField.getText();
         String descricao = textArea1.getText();
+        Evento evento = new Evento(nome, arteMarcial, dataInicial, dataFinal, descricao);
 
-        if (!tryParseDate(dataInicial) || !tryParseDate(dataFinal)) {
+        //verifica se o nome é válido
+        if (!isValidName(nome)) {
+            JOptionPane.showMessageDialog(null, "Por favor, insira um nome válido (somente letras).");
             return 0; // Abortar o processo de salvar o evento
-        }else {
-            Evento evento = new Evento(nome, arteMarcial, dataInicial, dataFinal, descricao);
-            Evento.guardarEvento(evento);
-            return 1; // Evento guardado com sucesso
         }
+
+        //verifica se a data é válida
+        else if (!tryParseDate(dataInicial) || !tryParseDate(dataFinal)) {
+            return 0; // Abortar o processo de salvar o evento
+        }
+
+        // Verifica se a descrição excede o tamanho máximo permitido
+        else if (!isValidDescription(descricao)) {
+            JOptionPane.showMessageDialog(null, "A descrição deve ter no máximo 255 caracteres.");
+            return 0; // Abortar o processo de salvar o evento
+        }
+
+
+        Evento.guardarEvento(evento);
+        return 1; // Evento guardado com sucesso
+
     }
 
     public AdicionarEventos() {
@@ -94,10 +118,13 @@ public class AdicionarEventos extends JFrame {
         dataFinalTextField.setFormatterFactory(new DefaultFormatterFactory(formatter));
 
         adicionarButton.addActionListener(e -> {
+
             //Adicionar evento
-            guardarEvento();
-            if (guardarEvento() == 1) { JOptionPane.showMessageDialog(null, "Evento adicionado com sucesso!"); }
-            else { JOptionPane.showMessageDialog(null, "Data inválida! Insira no formato dd/MM/yyyy."); }
+            int result = guardarEvento();
+            if (result == 1) {
+                JOptionPane.showMessageDialog(null, "Evento adicionado com sucesso!");
+            } else { JOptionPane.showMessageDialog(null, "Por favor insira uma data válida!"); }
+
             PaginaEventos paginaEventos = new PaginaEventos();
             paginaEventos.setVisible(true);
             dispose();
