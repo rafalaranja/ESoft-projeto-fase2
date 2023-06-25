@@ -10,16 +10,17 @@ import java.io.IOException;
 
 public class PaginaEventos extends JFrame{
     private JPanel painelPrincipal;
-    private JButton atletasButton1;
-    private JButton estatisticasButton;
-    private JButton sobreButton;
-    private JButton eventosButton;
+    private JButton atletasButtonSide;
+    private JButton estatisticasButtonSide;
+    private JButton sobreButtonSide;
+    private JButton eventosButtonSide;
     private JLabel nomeUser;
     private JLabel fotoUser;
     private JTable table1;
     private JButton importarEventosButton;
     private JButton adicionarEventosButton;
     private JButton loginButtonSide;
+    private JButton menuInicialButtonSide;
 
     private void carregarEventos() {
         // Ler os eventos do arquivo "eventos.txt" e atualizar o modelo da tabela
@@ -44,20 +45,15 @@ public class PaginaEventos extends JFrame{
         setContentPane(painelPrincipal);
         pack();
 
+        //////////////////////////// SIDEBAR ////////////////////////////
+
+
         // colocar a foto e nome do user logado
-
-        String username = "Guest";
-
         if (Login.nomeUser != null){
             nomeUser.setText(Login.nomeUser); //mostrar o nome do user logado
         } else {
-            nomeUser.setText(username);
-        }
-
-        if (nomeUser.getText().equals("Guest")){
-            adicionarEventosButton.setVisible(false);
-            importarEventosButton.setVisible(false);
-        } else {
+            nomeUser.setText("Guest");
+        }if (!nomeUser.getText().equals("Guest")){
             loginButtonSide.setVisible(false);
         }
 
@@ -68,9 +64,23 @@ public class PaginaEventos extends JFrame{
 
 
         // Listeners dos botões
-        sobreButton.addActionListener(e -> {
-            Sobre sobre = new Sobre();
-            sobre.setVisible(true);
+
+        eventosButtonSide.addActionListener(e -> {
+            PaginaEventos paginaEventos = new PaginaEventos();
+            paginaEventos.setVisible(true);
+            dispose();
+        });
+
+        atletasButtonSide.addActionListener(e -> {
+            PaginaAtletas paginaAtletas = new PaginaAtletas();
+            paginaAtletas.setVisible(true);
+            dispose();
+        });
+
+
+        estatisticasButtonSide.addActionListener(e -> {
+            PaginaEstatisticas paginaEstatisticas = new PaginaEstatisticas();
+            paginaEstatisticas.setVisible(true);
             dispose();
         });
 
@@ -79,6 +89,20 @@ public class PaginaEventos extends JFrame{
             login.setVisible(true);
             dispose();
         });
+
+        sobreButtonSide.addActionListener(e -> {
+            Sobre sobre = new Sobre();
+            sobre.setVisible(true);
+            dispose();
+        });
+
+        menuInicialButtonSide.addActionListener(e -> {
+            PaginaInicial paginaInicial = new PaginaInicial();
+            paginaInicial.setVisible(true);
+            dispose();
+        });
+
+        //////////////////////////// FIM DA SIDEBAR ////////////////////////////
 
         // Criar uma matriz de eventos (supondo que você já tenha os eventos em uma matriz/lista)
         String[][] eventos = {{"Evento 1", "Data 1"}, {"Evento 2", "Data 2"}, {"Evento 3", "Data 3"}};
@@ -108,6 +132,7 @@ public class PaginaEventos extends JFrame{
                 dispose();
             }
         });
+
     }
 
 

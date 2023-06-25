@@ -14,6 +14,7 @@ public class PaginaAtletas extends JFrame {
     private JTable table1;
     private JButton adicionarAtletasButton;
     private JButton importarAtletasButton;
+    private JButton menuInicialButtonSide;
 
     public PaginaAtletas() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -21,7 +22,7 @@ public class PaginaAtletas extends JFrame {
         pack();
 
 
-
+        //////////////////////////// SIDEBAR ////////////////////////////
 
         // colocar a foto e nome do user logado
         if (Login.nomeUser != null){
@@ -68,6 +69,12 @@ public class PaginaAtletas extends JFrame {
         sobreButtonSide.addActionListener(e -> {
             Sobre sobre = new Sobre();
             sobre.setVisible(true);
+            dispose();
+        });
+
+        menuInicialButtonSide.addActionListener(e -> {
+            PaginaInicial paginaInicial = new PaginaInicial();
+            paginaInicial.setVisible(true);
             dispose();
         });
 
