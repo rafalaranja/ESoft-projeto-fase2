@@ -7,10 +7,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 public class AdicionarEventos extends JFrame {
-    private JButton atletasButton1;
-    private JButton estatisticasButton;
-    private JButton sobreButton;
-    private JButton eventosButton;
+    private JButton atletasButtonSide;
+    private JButton estatisticasButtonSide;
+    private JButton sobreButtonSide;
+    private JButton eventosButtonSide;
     private JLabel nomeUser;
     private JLabel fotoUser;
     private JPanel painelPrincipal;
@@ -93,7 +93,7 @@ public class AdicionarEventos extends JFrame {
         fotoUser.setIcon(icon);
 
         // Listeners dos botões
-        sobreButton.addActionListener(e -> {
+        sobreButtonSide.addActionListener(e -> {
             Sobre sobre = new Sobre();
             sobre.setVisible(true);
             dispose();

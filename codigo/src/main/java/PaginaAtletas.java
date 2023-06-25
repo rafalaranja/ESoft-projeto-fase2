@@ -1,35 +1,26 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class PaginaInicial extends JFrame {
+public class PaginaAtletas extends JFrame {
+
     private JPanel painelPrincipal;
-    private JButton eventosButton;
-    private JButton atletasButton;
-    private JButton eventosButtonSide;
     private JButton atletasButtonSide;
     private JButton estatisticasButtonSide;
     private JButton sobreButtonSide;
+    private JButton eventosButtonSide;
+    private JButton loginButtonSide;
     private JLabel nomeUser;
     private JLabel fotoUser;
-    private JButton loginButtonSide;
+    private JTable table1;
+    private JButton adicionarAtletasButton;
+    private JButton importarAtletasButton;
 
-
-    public static void main(String[] args) {
-        PaginaInicial paginaInicial = new PaginaInicial();
-        paginaInicial.setVisible(true);
-    }
-
-
-    public PaginaInicial() {
+    public PaginaAtletas() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(painelPrincipal);
         pack();
 
 
-
-        //////////////////////////// SIDEBAR ////////////////////////////
 
 
         // colocar a foto e nome do user logado
@@ -81,26 +72,5 @@ public class PaginaInicial extends JFrame {
         });
 
         //////////////////////////// FIM DA SIDEBAR ////////////////////////////
-
-
-
-        //////////////////////////// MAIN ////////////////////////////
-
-
-        eventosButton.addActionListener(e -> {
-            PaginaEventos paginaEventos = new PaginaEventos();
-            paginaEventos.setVisible(true);
-            dispose();
-        });
-
-
-        atletasButton.addActionListener(e -> {
-            PaginaAtletas paginaAtletas = new PaginaAtletas();
-            paginaAtletas.setVisible(true);
-            dispose();
-        });
-
     }
-
 }
-
