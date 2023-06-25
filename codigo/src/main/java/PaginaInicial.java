@@ -16,6 +16,10 @@ public class PaginaInicial extends JFrame {
 
     public static void main(String[] args) {
         PaginaInicial paginaInicial = new PaginaInicial();
+
+        //Sidebar sidebar = new Sidebar();
+        //paginaInicial .add(sidebar, BorderLayout.WEST);
+
         paginaInicial.setVisible(true);
     }
 
@@ -24,6 +28,7 @@ public class PaginaInicial extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(painelPrincipal);
         pack();
+
 
         String username = "Guest";
 
