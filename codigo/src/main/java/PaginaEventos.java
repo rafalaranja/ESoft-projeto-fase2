@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Map;
 
 
 public class PaginaEventos extends JFrame{
@@ -55,7 +56,8 @@ public class PaginaEventos extends JFrame{
             nomeUser.setText(Login.nomeUser); //mostrar o nome do user logado
         } else {
             nomeUser.setText("Guest");
-        }if (!nomeUser.getText().equals("Guest")){
+        }
+        if (!nomeUser.getText().equals("Guest")){
             loginButtonSide.setVisible(false);
         }
 
@@ -124,6 +126,7 @@ public class PaginaEventos extends JFrame{
         carregarEventos(); // Carregar os eventos do arquivo "eventos.txt"
 
 
+
         adicionarEventosButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -153,6 +156,13 @@ public class PaginaEventos extends JFrame{
                 dispose();
             }
         });
+
+        if (nomeUser.getText().equals("Guest")) {
+            importarEventosButton.setVisible(false);
+            adicionarEventosButton.setVisible(false);
+            editarEventosButton.setVisible(false);
+            eliminarEventosButton.setVisible(false);
+        }
     }
 }
 

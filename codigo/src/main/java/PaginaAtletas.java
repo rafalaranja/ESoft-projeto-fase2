@@ -79,5 +79,12 @@ public class PaginaAtletas extends JFrame {
         });
 
         //////////////////////////// FIM DA SIDEBAR ////////////////////////////
+
+
+
+        if (nomeUser.getText().equals("Guest")){ // tem de estar no final da pagina
+            adicionarAtletasButton.setVisible(false);
+            importarAtletasButton.setVisible(false);
+        }
     }
 }
