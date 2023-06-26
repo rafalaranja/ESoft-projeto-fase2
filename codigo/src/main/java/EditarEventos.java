@@ -1,28 +1,33 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class PaginaAtletas extends JFrame {
-
+public class EditarEventos extends JFrame{
     private JPanel painelPrincipal;
     private JButton atletasButtonSide;
     private JButton estatisticasButtonSide;
     private JButton sobreButtonSide;
     private JButton eventosButtonSide;
     private JButton loginButtonSide;
+    private JButton menuInicialButtonSide;
     private JLabel nomeUser;
     private JLabel fotoUser;
-    private JTable table1;
-    private JButton adicionarAtletasButton;
-    private JButton importarAtletasButton;
-    private JButton menuInicialButtonSide;
+    private JComboBox eventoComboBox;
+    private JLabel adicionarEventosButton;
+    private JButton apagarButton;
 
-    public PaginaAtletas() {
+
+
+
+
+
+    public EditarEventos() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(painelPrincipal);
         pack();
 
 
         //////////////////////////// SIDEBAR ////////////////////////////
+
 
         // colocar a foto e nome do user logado
         if (Login.nomeUser != null){
@@ -53,7 +58,6 @@ public class PaginaAtletas extends JFrame {
             dispose();
         });
 
-
         estatisticasButtonSide.addActionListener(e -> {
             PaginaEstatisticas paginaEstatisticas = new PaginaEstatisticas();
             paginaEstatisticas.setVisible(true);
@@ -79,5 +83,8 @@ public class PaginaAtletas extends JFrame {
         });
 
         //////////////////////////// FIM DA SIDEBAR ////////////////////////////
+
+
+
     }
 }

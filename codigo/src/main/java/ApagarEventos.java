@@ -1,51 +1,77 @@
 import javax.swing.*;
-import javax.swing.table.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
-
-public class PaginaEventos extends JFrame{
+public class ApagarEventos extends JFrame{
     private JPanel painelPrincipal;
     private JButton atletasButtonSide;
     private JButton estatisticasButtonSide;
     private JButton sobreButtonSide;
     private JButton eventosButtonSide;
-    private JLabel nomeUser;
-    private JLabel fotoUser;
-    private JTable table1;
-    private JButton importarEventosButton;
-    private JButton adicionarEventosButton;
     private JButton loginButtonSide;
     private JButton menuInicialButtonSide;
-    private JButton editarEventosButton;
-    private JButton eliminarEventosButton;
+    private JLabel nomeUser;
+    private JLabel fotoUser;
+    private JLabel adicionarEventosButton;
+    private JComboBox eventoComboBox;
+    private JButton apagarButton;
+
 
     private void carregarEventos() {
-        // Ler os eventos do arquivo "eventos.txt" e atualizar o modelo da tabela
+        // Ler os eventos do arquivo "eventos.txt" e atualizar o modelo da ComboBox
         try {
             BufferedReader reader = new BufferedReader(new FileReader("eventos.txt"));
             String linha;
-            DefaultTableModel modelo = (DefaultTableModel) table1.getModel();
-            modelo.setRowCount(0); // Limpar os dados existentes na tabela
+            DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
             while ((linha = reader.readLine()) != null) {
                 String[] dados = linha.split(":");
-                modelo.addRow(dados);
+                modelo.addElement(dados[0].trim());
             }
             reader.close();
+            eventoComboBox.setModel(modelo);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private boolean confirmarRemocaoEvento(String evento) {
+        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente remover o evento selecionado?", "Confirmação", JOptionPane.YES_NO_OPTION);
+        return resposta == JOptionPane.YES_OPTION;
+    }
+
+    private void removerEvento(String evento) {
+        // Implemente o código para remover o evento do arquivo "eventos.txt"
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("eventos.txt"));
+            StringBuilder conteudoArquivo = new StringBuilder();
+            String linha;
+            while ((linha = reader.readLine()) != null) {
+                if (!linha.startsWith(evento + ":")) {
+                    conteudoArquivo.append(linha).append("\n");
+                }
+            }
+            reader.close();
+
+            // Escrever o conteúdo atualizado no arquivo
+            FileWriter writer = new FileWriter("eventos.txt");
+            writer.write(conteudoArquivo.toString());
+            writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
 
-    public PaginaEventos() {
+    public ApagarEventos(){
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(painelPrincipal);
         pack();
+
+
+
 
         //////////////////////////// SIDEBAR ////////////////////////////
 
@@ -105,54 +131,21 @@ public class PaginaEventos extends JFrame{
 
         //////////////////////////// FIM DA SIDEBAR ////////////////////////////
 
-        // Criar uma matriz de eventos (supondo que você já tenha os eventos em uma matriz/lista)
-        String[][] eventos = {{"Evento 1", "Data 1"}, {"Evento 2", "Data 2"}, {"Evento 3", "Data 3"}};
-
-        // Criar um array de nomes das colunas
-        String[] colunas = {"Nome", "Arte Marcial", "Data Inicial"};
 
 
-        // Criar um DefaultTableModel com os eventos e colunas
-        DefaultTableModel modelo = new DefaultTableModel(eventos, colunas){
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false; // Impede a tabela de ser editada pelo utilizador
-            }
-        };
+        carregarEventos();
 
-        table1.setModel(modelo);
-        carregarEventos(); // Carregar os eventos do arquivo "eventos.txt"
-
-
-        adicionarEventosButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //ir para adicionar eventos
-                AdicionarEventos adicionarEventos = new AdicionarEventos();
-                adicionarEventos.setVisible(true);
-                dispose();
-            }
-        });
-
-
-        editarEventosButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                EditarEventos editarEventos = new EditarEventos();
-                editarEventos.setVisible(true);
-                dispose();
-
-            }
-        });
-
-        eliminarEventosButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ApagarEventos apagarEventos = new ApagarEventos();
-                apagarEventos.setVisible(true);
-                dispose();
+        apagarButton.addActionListener(e -> {
+            String eventoSelecionado = (String) eventoComboBox.getSelectedItem();
+            if (eventoSelecionado != null) {
+                if (confirmarRemocaoEvento(eventoSelecionado)) {
+                    removerEvento(eventoSelecionado);
+                    JOptionPane.showMessageDialog(this, "Evento removido com sucesso!");
+                    carregarEventos();
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Nenhum evento selecionado.");
             }
         });
     }
 }
-
