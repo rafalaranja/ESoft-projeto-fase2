@@ -145,6 +145,8 @@ public class AdicionarEventos extends JFrame {
 
         //////////////////////////// FIM DA SIDEBAR ////////////////////////////
 
+
+
         // Definir o modelo personalizado para a JComboBox arteMarcialComboBox
         arteMarcialComboBox.setModel(arteMarcialComboBoxModel);
 
