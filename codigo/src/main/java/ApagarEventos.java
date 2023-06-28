@@ -15,7 +15,6 @@ public class ApagarEventos extends JFrame{
     private JButton menuInicialButtonSide;
     private JLabel nomeUser;
     private JLabel fotoUser;
-    private JLabel adicionarEventosButton;
     private JComboBox eventoComboBox;
     private JButton apagarButton;
 
@@ -127,8 +126,6 @@ public class ApagarEventos extends JFrame{
         });
 
         //////////////////////////// FIM DA SIDEBAR ////////////////////////////
-
-
 
         carregarEventos();
 

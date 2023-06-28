@@ -9,19 +9,19 @@ public class Atleta {
     private String nacionalidade;
     private String arteMarcial;
 
-    public Atleta(String nome, String genero, String dataNascimento, String equipa, String nacionalidade, String arteMarcial) {
+    public Atleta(String nome, String genero, String dataNascimento, String equipa, String nacionalidade) {
         this.nome = nome;
         this.genero = genero;
         this.dataNascimento = dataNascimento;
         this.equipa = equipa;
         this.nacionalidade = nacionalidade;
-        this.arteMarcial = arteMarcial;
+        //this.arteMarcial = arteMarcial;
     }
 
     public static void guardarAtleta(Atleta atleta) {
         try {
             FileWriter writer = new FileWriter("atletas.txt", true);
-            writer.write(atleta.nome + ":" + atleta.genero + ":" + atleta.dataNascimento + ":" + atleta.equipa + ":" + atleta.nacionalidade + ":" + atleta.arteMarcial + "\n");
+            writer.write(atleta.nome + ":" + atleta.genero + ":" + atleta.dataNascimento + ":" + atleta.equipa + ":" + atleta.nacionalidade + "\n");
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();

@@ -25,13 +25,14 @@ public class PaginaEventos extends JFrame{
     private JButton editarEventosButton;
     private JButton eliminarEventosButton;
 
-    private void carregarEventos() {
+    private void carregarEventos(String[] colunas) {
         // Ler os eventos do arquivo "eventos.txt" e atualizar o modelo da tabela
         try {
             BufferedReader reader = new BufferedReader(new FileReader("eventos.txt"));
             String linha;
             DefaultTableModel modelo = (DefaultTableModel) table1.getModel();
             modelo.setRowCount(0); // Limpar os dados existentes na tabela
+            modelo.addRow(colunas);
             while ((linha = reader.readLine()) != null) {
                 String[] dados = linha.split(":");
                 modelo.addRow(dados);
@@ -123,9 +124,7 @@ public class PaginaEventos extends JFrame{
         };
 
         table1.setModel(modelo);
-        carregarEventos(); // Carregar os eventos do arquivo "eventos.txt"
-
-
+        carregarEventos(colunas); // Carregar os eventos do arquivo "eventos.txt"
 
         adicionarEventosButton.addActionListener(new ActionListener() {
             @Override
@@ -144,7 +143,6 @@ public class PaginaEventos extends JFrame{
                 EditarEventos editarEventos = new EditarEventos();
                 editarEventos.setVisible(true);
                 dispose();
-
             }
         });
 
