@@ -121,6 +121,7 @@ public class EditarEventos extends JFrame{
         editarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                eventoComboBox.setSelectedItem(null);   //por predefinição não tem nenhum evento selecionado
                 String eventoSelecionado = (String) eventoComboBox.getSelectedItem();
                 if (eventoSelecionado != null) {
                     // Implemente a lógica para editar o evento com as informações dos campos
@@ -143,7 +144,7 @@ public class EditarEventos extends JFrame{
                             String nomeEvento = dados[0].trim();
                             if (nomeEvento.equals(eventoSelecionado)) {
                                 // Editar a linha correspondente ao evento encontrado
-                                linha = nome + " : " + arteMarcial + " : " + dataInicial + " : " + dataFinal + " : " + descricao;
+                                linha = nome + ":" + arteMarcial + ":" + dataInicial + ":" + dataFinal + ":" + descricao;
                             }
                             writer.println(linha);
                         }
@@ -154,6 +155,9 @@ public class EditarEventos extends JFrame{
                         // Substituir o arquivo original pelo arquivo temporário
                         if (arquivoEventos.delete() && arquivoTemp.renameTo(arquivoEventos)) {
                             JOptionPane.showMessageDialog(null, "Evento editado com sucesso!");
+                            PaginaEventos paginaEventos = new PaginaEventos();
+                            paginaEventos.setVisible(true);
+                            dispose();
                         } else {
                             JOptionPane.showMessageDialog(null, "Falha ao editar o evento.");
                         }
