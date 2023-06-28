@@ -155,6 +155,15 @@ public class PaginaEventos extends JFrame{
             }
         });
 
+        importarEventosButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ImportarEventos importarEventos = new ImportarEventos();
+                importarEventos.setVisible(true);
+                dispose();
+            }
+        });
+
         if (nomeUser.getText().equals("Guest")) {
             importarEventosButton.setVisible(false);
             adicionarEventosButton.setVisible(false);

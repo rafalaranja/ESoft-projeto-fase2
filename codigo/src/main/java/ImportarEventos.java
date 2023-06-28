@@ -1,5 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.*;
 
 public class ImportarEventos extends JFrame{
     private JPanel painelPrincipal;
@@ -11,8 +14,7 @@ public class ImportarEventos extends JFrame{
     private JButton menuInicialButtonSide;
     private JLabel nomeUser;
     private JLabel fotoUser;
-    private JComboBox eventoComboBox;
-    private JButton apagarButton;
+    private JButton importarButton;
 
     public ImportarEventos() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -76,5 +78,44 @@ public class ImportarEventos extends JFrame{
         });
 
         //////////////////////////// FIM DA SIDEBAR ////////////////////////////
+
+
+        // Listener do botão de importar
+        importarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setDialogTitle("Importar Eventos");
+                fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+                fileChooser.setMultiSelectionEnabled(true);
+
+                int option = fileChooser.showOpenDialog(ImportarEventos.this);
+                if (option == JFileChooser.APPROVE_OPTION) {
+                    File[] files = fileChooser.getSelectedFiles();
+                    importarEventos(files);
+                }
+            }
+        });
+    }
+
+    private void importarEventos(File[] files) {
+        try {
+            FileWriter writer = new FileWriter("eventos.txt", true);
+
+            for (File file : files) {
+                BufferedReader reader = new BufferedReader(new FileReader(file));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    writer.write(line + "\n");
+                }
+                reader.close();
+            }
+
+            writer.close();
+            JOptionPane.showMessageDialog(null, "Eventos importados com sucesso!");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao importar eventos.");
+        }
     }
 }
