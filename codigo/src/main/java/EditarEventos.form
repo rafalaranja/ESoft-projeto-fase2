@@ -162,13 +162,13 @@
                   <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
                 </constraints>
               </vspacer>
-              <component id="1cc5f" class="javax.swing.JButton" binding="EDITARButton" default-binding="true">
+              <component id="1cc5f" class="javax.swing.JButton" binding="editarButton">
                 <constraints>
                   <grid row="13" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <background color="-10100681"/>
-                  <text value="EDITAR"/>
+                  <text value="Editar"/>
                 </properties>
               </component>
               <vspacer id="cb223">

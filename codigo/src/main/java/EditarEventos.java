@@ -1,5 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class EditarEventos extends JFrame{
     private JPanel painelPrincipal;
@@ -13,12 +18,29 @@ public class EditarEventos extends JFrame{
     private JLabel fotoUser;
     private JComboBox eventoComboBox;
     private JLabel adicionarEventosButton;
-    private JButton EDITARButton;
+    private JButton editarButton;
     private JTextField nomeTextField;
     private JComboBox arteMarcialComboBox;
     private JFormattedTextField dataFinalTextField;
     private JFormattedTextField dataInicialTextField;
     private JTextArea textArea1;
+
+    private void carregarEventos() {
+        // Ler os eventos do arquivo "eventos.txt" e atualizar o modelo da ComboBox
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("eventos.txt"));
+            String linha;
+            DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
+            while ((linha = reader.readLine()) != null) {
+                String[] dados = linha.split(":");
+                modelo.addElement(dados[0].trim());
+            }
+            reader.close();
+            eventoComboBox.setModel(modelo);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     public EditarEventos() {
@@ -86,6 +108,76 @@ public class EditarEventos extends JFrame{
         //////////////////////////// FIM DA SIDEBAR ////////////////////////////
 
 
+        carregarEventos();
 
+
+        editarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String eventoSelecionado = (String) eventoComboBox.getSelectedItem();
+                if (eventoSelecionado != null) {
+                    // Implemente a lógica para editar o evento com as informações dos campos
+                    String nome = nomeTextField.getText();
+                    String arteMarcial = (String) arteMarcialComboBox.getSelectedItem();
+                    String dataInicial = dataInicialTextField.getText();
+                    String dataFinal = dataFinalTextField.getText();
+                    String descricao = textArea1.getText();
+
+                    // Realize as ações necessárias para editar o evento
+                    // ...
+
+                    JOptionPane.showMessageDialog(null, "Evento editado com sucesso!");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Nenhum evento selecionado.");
+                }
+            }
+
+
+
+        });
+        eventoComboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String eventoSelecionado = (String) eventoComboBox.getSelectedItem();
+                if (eventoSelecionado != null) {
+                    //obter as informações do evento selecionado
+                    String[] informacoes = obterInformacoesEvento(eventoSelecionado);
+
+                    if (informacoes != null && informacoes.length >= 5) {
+                        nomeTextField.setText(informacoes[0]);
+                        arteMarcialComboBox.setSelectedItem(informacoes[1]);
+                        dataInicialTextField.setText(informacoes[2]);
+                        dataFinalTextField.setText(informacoes[3]);
+                        textArea1.setText(informacoes[4]);
+                    }
+                } else {
+                    // Limpar os campos se nenhum evento estiver selecionado
+                    nomeTextField.setText("");
+                    arteMarcialComboBox.setSelectedItem(null);
+                    dataInicialTextField.setText("");
+                    dataFinalTextField.setText("");
+                    textArea1.setText("");
+                }
+            }
+
+            private String[] obterInformacoesEvento(String evento) {
+                // Implemente o código para obter as informações do evento com base no nome do evento
+                try {
+                    BufferedReader reader = new BufferedReader(new FileReader("eventos.txt"));
+                    String linha;
+                    while ((linha = reader.readLine()) != null) {
+                        String[] dados = linha.split(":");
+                        if (dados.length >= 5 && dados[0].trim().equals(evento)) {
+                            reader.close();
+                            return dados;
+                        }
+                    }
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+        });
     }
 }
