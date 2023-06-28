@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 
-public class EditarEventos extends JFrame{
+public class EditarAtletas extends JFrame{
     private JPanel painelPrincipal;
     private JButton atletasButtonSide;
     private JButton estatisticasButtonSide;
@@ -14,19 +14,19 @@ public class EditarEventos extends JFrame{
     private JButton menuInicialButtonSide;
     private JLabel nomeUser;
     private JLabel fotoUser;
-    private JComboBox eventoComboBox;
     private JLabel adicionarEventosButton;
     private JButton editarButton;
     private JTextField nomeTextField;
-    private JComboBox arteMarcialComboBox;
-    private JFormattedTextField dataFinalTextField;
-    private JFormattedTextField dataInicialTextField;
-    private JTextArea textArea1;
+    private JComboBox generoComboBox;
+    private JFormattedTextField equipaTextField;
+    private JFormattedTextField dataNascimentoTextField;
+    private JComboBox atletaComboBox;
+    private JTextField nacionalidadeTextField;
 
-    private void carregarEventos() {
+    private void carregarAtletas() {
         // Ler os eventos do arquivo "eventos.txt" e atualizar o modelo da ComboBox
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("eventos.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader("atletas.txt"));
             String linha;
             DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
             while ((linha = reader.readLine()) != null) {
@@ -34,13 +34,13 @@ public class EditarEventos extends JFrame{
                 modelo.addElement(dados[0].trim());
             }
             reader.close();
-            eventoComboBox.setModel(modelo);
+            atletaComboBox.setModel(modelo);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public EditarEventos() {
+    public EditarAtletas() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(painelPrincipal);
         pack();
@@ -48,11 +48,12 @@ public class EditarEventos extends JFrame{
         //////////////////////////// SIDEBAR ////////////////////////////
 
         // colocar a foto e nome do user logado
-        if (Login.nomeUser != null){
+        if (Login.nomeUser != null) {
             nomeUser.setText(Login.nomeUser); //mostrar o nome do user logado
         } else {
             nomeUser.setText("Guest");
-        }if (!nomeUser.getText().equals("Guest")){
+        }
+        if (!nomeUser.getText().equals("Guest")) {
             loginButtonSide.setVisible(false);
         }
 
@@ -102,36 +103,32 @@ public class EditarEventos extends JFrame{
 
         //////////////////////////// FIM DA SIDEBAR ////////////////////////////
 
-        eventoComboBox.setSelectedItem(null);
-        carregarEventos();
+        atletaComboBox.setSelectedItem(null);
+        carregarAtletas();
 
         DefaultComboBoxModel<String> modeloComboBox = new DefaultComboBoxModel<>();
-        modeloComboBox.addElement("BJJ");
-        modeloComboBox.addElement("Judo");
-        modeloComboBox.addElement("Luta Greco-Romana");
-        modeloComboBox.addElement("Luta Livre-Olímpica");
-        modeloComboBox.addElement("Submission Grappling");
-        arteMarcialComboBox.setModel(modeloComboBox);
-
+        modeloComboBox.addElement("Masculino");
+        modeloComboBox.addElement("Feminino");
+        generoComboBox.setModel(modeloComboBox);
 
         editarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                eventoComboBox.setSelectedItem(null);   //por predefinição não tem nenhum evento selecionado
-                String eventoSelecionado = (String) eventoComboBox.getSelectedItem();
+
+                String eventoSelecionado = (String) atletaComboBox.getSelectedItem();
                 if (eventoSelecionado != null) {
                     // Implemente a lógica para editar o evento com as informações dos campos
                     String nome = nomeTextField.getText();
-                    String arteMarcial = (String) arteMarcialComboBox.getSelectedItem();
-                    String dataInicial = dataInicialTextField.getText();
-                    String dataFinal = dataFinalTextField.getText();
-                    String descricao = textArea1.getText();
+                    String genero = (String) generoComboBox.getSelectedItem();
+                    String dataNascimento = dataNascimentoTextField.getText();
+                    String equipa = equipaTextField.getText();
+                    String nacionalidade = nacionalidadeTextField.getText();
 
                     try {
-                        File arquivoEventos = new File("eventos.txt");
+                        File arquivoAtletas = new File("atletas.txt");
                         File arquivoTemp = new File("temp.txt");
 
-                        BufferedReader reader = new BufferedReader(new FileReader(arquivoEventos));
+                        BufferedReader reader = new BufferedReader(new FileReader(arquivoAtletas));
                         PrintWriter writer = new PrintWriter(new FileWriter(arquivoTemp));
 
                         String linha;
@@ -140,7 +137,7 @@ public class EditarEventos extends JFrame{
                             String nomeEvento = dados[0].trim();
                             if (nomeEvento.equals(eventoSelecionado)) {
                                 // Editar a linha correspondente ao evento encontrado
-                                linha = nome + ":" + arteMarcial + ":" + dataInicial + ":" + dataFinal + ":" + descricao;
+                                linha = nome + ":" + genero + ":" + dataNascimento + ":" + equipa + ":" + nacionalidade;
                             }
                             writer.println(linha);
                         }
@@ -149,7 +146,7 @@ public class EditarEventos extends JFrame{
                         writer.close();
 
                         // Substituir o arquivo original pelo arquivo temporário
-                        if (arquivoEventos.delete() && arquivoTemp.renameTo(arquivoEventos)) {
+                        if (arquivoAtletas.delete() && arquivoTemp.renameTo(arquivoAtletas)) {
                             JOptionPane.showMessageDialog(null, "Evento editado com sucesso!");
                             PaginaEventos paginaEventos = new PaginaEventos();
                             paginaEventos.setVisible(true);
@@ -167,40 +164,40 @@ public class EditarEventos extends JFrame{
                 }
             }
         });
-
-        eventoComboBox.addActionListener(new ActionListener() {
+        atletaComboBox.setSelectedItem(null);   //por predefinição não tem nenhum evento selecionado
+        atletaComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String eventoSelecionado = (String) eventoComboBox.getSelectedItem();
-                if (eventoSelecionado != null) {
+                String atletaSelecionado = (String) atletaComboBox.getSelectedItem();
+                if (atletaSelecionado != null) {
                     //obter as informações do evento selecionado
-                    String[] informacoes = obterInformacoesEvento(eventoSelecionado);
+                    String[] informacoes = obterInformacoesAtleta(atletaSelecionado);
 
                     if (informacoes != null && informacoes.length >= 5) {
                         nomeTextField.setText(informacoes[0]);
-                        arteMarcialComboBox.setSelectedItem(informacoes[1]);
-                        dataInicialTextField.setText(informacoes[2]);
-                        dataFinalTextField.setText(informacoes[3]);
-                        textArea1.setText(informacoes[4]);
+                        generoComboBox.setSelectedItem(informacoes[1]);
+                        dataNascimentoTextField.setText(informacoes[2]);
+                        equipaTextField.setText(informacoes[3]);
+                        nacionalidadeTextField.setText(informacoes[4]);
                     }
                 } else {
                     // Limpar os campos se nenhum evento estiver selecionado
                     nomeTextField.setText("");
-                    arteMarcialComboBox.setSelectedItem(null);
-                    dataInicialTextField.setText("");
-                    dataFinalTextField.setText("");
-                    textArea1.setText("");
+                    generoComboBox.setSelectedItem(null);
+                    dataNascimentoTextField.setText("");
+                    equipaTextField.setText("");
+                    nacionalidadeTextField.setText("");
                 }
             }
 
-            private String[] obterInformacoesEvento(String evento) {
+            private String[] obterInformacoesAtleta(String atleta) {
                 // obter as informações do evento com base no nome do evento
                 try {
                     BufferedReader reader = new BufferedReader(new FileReader("eventos.txt"));
                     String linha;
                     while ((linha = reader.readLine()) != null) {
                         String[] dados = linha.split(":");
-                        if (dados.length >= 5 && dados[0].trim().equals(evento)) {
+                        if (dados.length >= 5 && dados[0].trim().equals(atleta)) {
                             reader.close();
                             return dados;
                         }
