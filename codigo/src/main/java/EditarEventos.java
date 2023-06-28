@@ -108,7 +108,16 @@ public class EditarEventos extends JFrame{
         //////////////////////////// FIM DA SIDEBAR ////////////////////////////
 
 
+        eventoComboBox.setSelectedItem(null);
         carregarEventos();
+
+        DefaultComboBoxModel<String> modeloComboBox = new DefaultComboBoxModel<>();
+        modeloComboBox.addElement("BJJ");
+        modeloComboBox.addElement("Judo");
+        modeloComboBox.addElement("Luta Greco-Romana");
+        modeloComboBox.addElement("Luta Livre-Olímpica");
+        modeloComboBox.addElement("Submission Grappling");
+        arteMarcialComboBox.setModel(modeloComboBox);
 
 
         editarButton.addActionListener(new ActionListener() {
@@ -124,6 +133,7 @@ public class EditarEventos extends JFrame{
                     String descricao = textArea1.getText();
 
                     // Realize as ações necessárias para editar o evento
+
                     // ...
 
                     JOptionPane.showMessageDialog(null, "Evento editado com sucesso!");
@@ -161,7 +171,7 @@ public class EditarEventos extends JFrame{
             }
 
             private String[] obterInformacoesEvento(String evento) {
-                // Implemente o código para obter as informações do evento com base no nome do evento
+                // obter as informações do evento com base no nome do evento
                 try {
                     BufferedReader reader = new BufferedReader(new FileReader("eventos.txt"));
                     String linha;
