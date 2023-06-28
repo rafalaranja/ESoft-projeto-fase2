@@ -70,9 +70,6 @@ public class ApagarEventos extends JFrame{
         setContentPane(painelPrincipal);
         pack();
 
-
-
-
         //////////////////////////// SIDEBAR ////////////////////////////
 
 
