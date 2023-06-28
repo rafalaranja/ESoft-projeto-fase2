@@ -6,26 +6,26 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-public class AdicionarEventos extends JFrame {
+public class AdicionarAtletas extends JFrame{
+    private JPanel painelPrincipal;
     private JButton atletasButtonSide;
     private JButton estatisticasButtonSide;
     private JButton sobreButtonSide;
     private JButton eventosButtonSide;
-    private JLabel nomeUser;
-    private JLabel fotoUser;
-    private JPanel painelPrincipal;
-    private JTextField nomeTextField;
-    private JButton adicionarButton;
-    private JComboBox<String> arteMarcialComboBox; // Define o tipo genérico da JComboBox
-    private JFormattedTextField dataInicialTextField;
-    private JFormattedTextField dataFinalTextField;
-    private JTextArea textArea1;
     private JButton loginButtonSide;
     private JButton menuInicialButtonSide;
+    private JLabel nomeUser;
+    private JLabel fotoUser;
+    private JTextField nomeTextField;
+    private JButton adicionarButton;
+    private JComboBox generoComboBox;
+    private JFormattedTextField equipaTextField;
+    private JFormattedTextField dataNascimentoTextField;
+    private JTextField nacionalidadeTextField;
 
     // Restringir as opções na JComboBox
-    private DefaultComboBoxModel<String> arteMarcialComboBoxModel = new DefaultComboBoxModel<>(
-            new String[]{"BJJ", "Judo", "Luta Greco-Romana", "Luta Livre-Olímpica", "Submission Grappling"});
+    private DefaultComboBoxModel<String> generoComboBoxModel = new DefaultComboBoxModel<>(
+            new String[]{"Masculino", "Feminino"});
 
     //Impedir que sejam colocados caracteres inválidos na data
     private boolean tryParseDate(String dateString) {
@@ -39,37 +39,25 @@ public class AdicionarEventos extends JFrame {
         }
     }
 
-    //Verificar se descricao é válida
-    private boolean isValidDescription(String description) {
-        return description.length() <= 255;
-    }
-
-
-    private int guardarEvento() {
+    private int guardarAtleta() {
         String nome = nomeTextField.getText();
-        String arteMarcial = (String) arteMarcialComboBox.getSelectedItem();
-        String dataInicial = dataInicialTextField.getText();
-        String dataFinal = dataFinalTextField.getText();
-        String descricao = textArea1.getText();
-        Evento evento = new Evento(nome, arteMarcial, dataInicial, dataFinal, descricao);
+        String genero = (String) generoComboBox.getSelectedItem();
+        String dataNascimento = dataNascimentoTextField.getText();
+        String equipa = equipaTextField.getText();
+        String nacionalidade = nacionalidadeTextField.getText();
+        Atleta atleta = new Atleta(nome, genero, dataNascimento, equipa, nacionalidade);
 
         //verifica se a data é válida
-        if (!tryParseDate(dataInicial) || !tryParseDate(dataFinal)) {
-            return 0; // Abortar o processo de salvar o evento
-        }
-
-        // Verifica se a descrição excede o tamanho máximo permitido
-        else if (!isValidDescription(descricao)) {
-            JOptionPane.showMessageDialog(null, "A descrição deve ter no máximo 255 caracteres.");
+        if (!tryParseDate(dataNascimento)) {
             return 0; // Abortar o processo de salvar o evento
         }
         else {
-            Evento.guardarEvento(evento);
+            Atleta.guardarAtleta(atleta);
             return 1; // Evento guardado com sucesso
         }
     }
 
-    public AdicionarEventos() {
+    public AdicionarAtletas() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(painelPrincipal);
         pack();
@@ -132,10 +120,7 @@ public class AdicionarEventos extends JFrame {
 
         //////////////////////////// FIM DA SIDEBAR ////////////////////////////
 
-
-
-        // Definir o modelo personalizado para a JComboBox arteMarcialComboBox
-        arteMarcialComboBox.setModel(arteMarcialComboBoxModel);
+        generoComboBox.setModel(generoComboBoxModel);
 
         // Criar um MaskFormatter para o formato de data (dd/MM/yyyy)
         MaskFormatter formatter;
@@ -147,22 +132,24 @@ public class AdicionarEventos extends JFrame {
             return;
         }
 
-        dataInicialTextField.setFormatterFactory(new DefaultFormatterFactory(formatter));
-        dataFinalTextField.setFormatterFactory(new DefaultFormatterFactory(formatter));
+        dataNascimentoTextField.setFormatterFactory(new DefaultFormatterFactory(formatter));
 
         adicionarButton.addActionListener(e -> {
 
             //Adicionar evento
-            int result = guardarEvento();
+            int result = guardarAtleta();
             if (result == 1) {
-                JOptionPane.showMessageDialog(null, "Evento adicionado com sucesso!");
-            } else { JOptionPane.showMessageDialog(null, "Por favor insira uma data válida!"); }
+                JOptionPane.showMessageDialog(null, "Atleta adicionado com sucesso!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Por favor insira uma data válida!"); }
 
             if (result == 1) {
-                PaginaEventos paginaEventos = new PaginaEventos();
-                paginaEventos.setVisible(true);
+                PaginaAtletas paginaAtletas = new PaginaAtletas();
+                paginaAtletas.setVisible(true);
                 dispose();
             }
         });
     }
+
+
 }
