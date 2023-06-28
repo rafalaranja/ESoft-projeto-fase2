@@ -2,9 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 public class EditarEventos extends JFrame{
     private JPanel painelPrincipal;
@@ -132,12 +130,39 @@ public class EditarEventos extends JFrame{
                     String dataFinal = dataFinalTextField.getText();
                     String descricao = textArea1.getText();
 
-                    // Realize as ações necessárias para editar o evento
+                    try {
+                        File arquivoEventos = new File("eventos.txt");
+                        File arquivoTemp = new File("temp.txt");
 
-                    // ...
+                        BufferedReader reader = new BufferedReader(new FileReader(arquivoEventos));
+                        PrintWriter writer = new PrintWriter(new FileWriter(arquivoTemp));
 
-                    JOptionPane.showMessageDialog(null, "Evento editado com sucesso!");
-                } else {
+                        String linha;
+                        while ((linha = reader.readLine()) != null) {
+                            String[] dados = linha.split(":");
+                            String nomeEvento = dados[0].trim();
+                            if (nomeEvento.equals(eventoSelecionado)) {
+                                // Editar a linha correspondente ao evento encontrado
+                                linha = nome + " : " + arteMarcial + " : " + dataInicial + " : " + dataFinal + " : " + descricao;
+                            }
+                            writer.println(linha);
+                        }
+
+                        reader.close();
+                        writer.close();
+
+                        // Substituir o arquivo original pelo arquivo temporário
+                        if (arquivoEventos.delete() && arquivoTemp.renameTo(arquivoEventos)) {
+                            JOptionPane.showMessageDialog(null, "Evento editado com sucesso!");
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Falha ao editar o evento.");
+                        }
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                        JOptionPane.showMessageDialog(null, "Erro ao acessar o arquivo eventos.txt");
+                    }
+                }
+                else {
                     JOptionPane.showMessageDialog(null, "Nenhum evento selecionado.");
                 }
             }
