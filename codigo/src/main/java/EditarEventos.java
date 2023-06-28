@@ -121,7 +121,6 @@ public class EditarEventos extends JFrame{
         editarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                eventoComboBox.setSelectedItem(null);   //por predefinição não tem nenhum evento selecionado
                 String eventoSelecionado = (String) eventoComboBox.getSelectedItem();
                 if (eventoSelecionado != null) {
                     // Implemente a lógica para editar o evento com as informações dos campos
@@ -174,6 +173,7 @@ public class EditarEventos extends JFrame{
 
 
         });
+        eventoComboBox.setSelectedItem(null);   //por predefinição não tem nenhum evento selecionado
         eventoComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
