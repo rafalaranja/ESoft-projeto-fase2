@@ -13,11 +13,12 @@ public class EditarEventos extends JFrame{
     private JLabel fotoUser;
     private JComboBox eventoComboBox;
     private JLabel adicionarEventosButton;
-    private JButton apagarButton;
-
-
-
-
+    private JButton EDITARButton;
+    private JTextField nomeTextField;
+    private JComboBox arteMarcialComboBox;
+    private JFormattedTextField dataFinalTextField;
+    private JFormattedTextField dataInicialTextField;
+    private JTextArea textArea1;
 
 
     public EditarEventos() {

@@ -39,11 +39,6 @@ public class AdicionarEventos extends JFrame {
         }
     }
 
-    // Verificar se o nome é válido
-    private boolean isValidName(String name) {
-        return name.matches("[a-zA-Z]+");
-    }
-
     //Verificar se descricao é válida
     private boolean isValidDescription(String description) {
         return description.length() <= 255;
@@ -58,14 +53,8 @@ public class AdicionarEventos extends JFrame {
         String descricao = textArea1.getText();
         Evento evento = new Evento(nome, arteMarcial, dataInicial, dataFinal, descricao);
 
-        //verifica se o nome é válido
-        if (!isValidName(nome)) {
-            JOptionPane.showMessageDialog(null, "Por favor, insira um nome válido (somente letras).");
-            return 0; // Abortar o processo de salvar o evento
-        }
-
         //verifica se a data é válida
-        else if (!tryParseDate(dataInicial) || !tryParseDate(dataFinal)) {
+        if (!tryParseDate(dataInicial) || !tryParseDate(dataFinal)) {
             return 0; // Abortar o processo de salvar o evento
         }
 
@@ -74,10 +63,11 @@ public class AdicionarEventos extends JFrame {
             JOptionPane.showMessageDialog(null, "A descrição deve ter no máximo 255 caracteres.");
             return 0; // Abortar o processo de salvar o evento
         }
+        else {
+            Evento.guardarEvento(evento);
+            return 1; // Evento guardado com sucesso
+        }
 
-
-        Evento.guardarEvento(evento);
-        return 1; // Evento guardado com sucesso
 
     }
 
