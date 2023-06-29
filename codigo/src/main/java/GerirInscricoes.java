@@ -172,8 +172,9 @@ public class GerirInscricoes extends JFrame{
                                     atletasString.append(atletaSelecionado).append(",");
                                 }
                                 dados[4] = atletasString.toString();
-                                writer.println(dados[0] + ":" + dados[1] + ":" + dados[2] + ":" + dados[3] + ":" + dados[4]);
+                                linha = dados[0] + ":" + dados[1] + ":" + dados[2] + ":" + dados[3] + ":" + dados[4];
                             }
+                            writer.println(linha);
                         }
 
                         reader.close();
@@ -182,9 +183,6 @@ public class GerirInscricoes extends JFrame{
                         // Substituir o arquivo original pelo arquivo temporário
                         if (arquivoAtletas.delete() && arquivoTemp.renameTo(arquivoAtletas)) {
                             JOptionPane.showMessageDialog(null, "Atleta adicionado com sucesso!");
-                            PaginaProvas paginaProvas = new PaginaProvas();
-                            paginaProvas.setVisible(true);
-                            dispose();
                         } else {
                             JOptionPane.showMessageDialog(null, "Falha ao editar o atleta.");
                         }
