@@ -15,7 +15,6 @@ public class Atleta {
         this.dataNascimento = dataNascimento;
         this.equipa = equipa;
         this.nacionalidade = nacionalidade;
-        //this.arteMarcial = arteMarcial;
     }
 
     public static void guardarAtleta(Atleta atleta) {
