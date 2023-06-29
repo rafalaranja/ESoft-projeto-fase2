@@ -24,6 +24,7 @@ public class PaginaEventos extends JFrame{
     private JButton menuInicialButtonSide;
     private JButton editarEventosButton;
     private JButton eliminarEventosButton;
+    private JButton provasButtonSide;
 
     private void carregarEventos(String[] colunas) {
         // Ler os eventos do arquivo "eventos.txt" e atualizar o modelo da tabela
@@ -79,6 +80,12 @@ public class PaginaEventos extends JFrame{
         atletasButtonSide.addActionListener(e -> {
             PaginaAtletas paginaAtletas = new PaginaAtletas();
             paginaAtletas.setVisible(true);
+            dispose();
+        });
+
+        provasButtonSide.addActionListener(e ->  {
+            PaginaProvas paginaProvas = new PaginaProvas();
+            paginaProvas.setVisible(true);
             dispose();
         });
 

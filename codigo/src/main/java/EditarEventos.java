@@ -22,6 +22,7 @@ public class EditarEventos extends JFrame{
     private JFormattedTextField dataFinalTextField;
     private JFormattedTextField dataInicialTextField;
     private JTextArea textArea1;
+    private JButton provasButtonSide;
 
     private void carregarEventos() {
         // Ler os eventos do arquivo "eventos.txt" e atualizar o modelo da ComboBox
@@ -74,6 +75,12 @@ public class EditarEventos extends JFrame{
         atletasButtonSide.addActionListener(e -> {
             PaginaAtletas paginaAtletas = new PaginaAtletas();
             paginaAtletas.setVisible(true);
+            dispose();
+        });
+
+        provasButtonSide.addActionListener(e ->  {
+            PaginaProvas paginaProvas = new PaginaProvas();
+            paginaProvas.setVisible(true);
             dispose();
         });
 

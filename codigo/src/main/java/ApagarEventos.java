@@ -17,6 +17,7 @@ public class ApagarEventos extends JFrame{
     private JLabel fotoUser;
     private JComboBox eventoComboBox;
     private JButton apagarButton;
+    private JButton provasButtonSide;
 
 
     private void carregarEventos() {
@@ -98,6 +99,12 @@ public class ApagarEventos extends JFrame{
         atletasButtonSide.addActionListener(e -> {
             PaginaAtletas paginaAtletas = new PaginaAtletas();
             paginaAtletas.setVisible(true);
+            dispose();
+        });
+
+        provasButtonSide.addActionListener(e ->  {
+            PaginaProvas paginaProvas = new PaginaProvas();
+            paginaProvas.setVisible(true);
             dispose();
         });
 

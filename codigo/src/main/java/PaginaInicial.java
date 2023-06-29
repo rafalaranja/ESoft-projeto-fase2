@@ -14,6 +14,7 @@ public class PaginaInicial extends JFrame {
     private JLabel nomeUser;
     private JLabel fotoUser;
     private JButton loginButtonSide;
+    private JButton provasButtonSide;
 
 
     public static void main(String[] args) {
@@ -61,6 +62,11 @@ public class PaginaInicial extends JFrame {
             dispose();
         });
 
+        provasButtonSide.addActionListener(e ->  {
+            PaginaProvas paginaProvas = new PaginaProvas();
+            paginaProvas.setVisible(true);
+            dispose();
+        });
 
         estatisticasButtonSide.addActionListener(e -> {
             PaginaEstatisticas paginaEstatisticas = new PaginaEstatisticas();

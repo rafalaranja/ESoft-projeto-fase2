@@ -2,6 +2,8 @@ import javax.swing.*;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,6 +24,7 @@ public class AdicionarAtletas extends JFrame{
     private JFormattedTextField equipaTextField;
     private JFormattedTextField dataNascimentoTextField;
     private JTextField nacionalidadeTextField;
+    private JButton provasButtonSide;
 
     // Restringir as opções na JComboBox
     private DefaultComboBoxModel<String> generoComboBoxModel = new DefaultComboBoxModel<>(
@@ -93,6 +96,11 @@ public class AdicionarAtletas extends JFrame{
             dispose();
         });
 
+        provasButtonSide.addActionListener(e ->  {
+                PaginaProvas paginaProvas = new PaginaProvas();
+                paginaProvas.setVisible(true);
+                dispose();
+        });
 
         estatisticasButtonSide.addActionListener(e -> {
             PaginaEstatisticas paginaEstatisticas = new PaginaEstatisticas();
