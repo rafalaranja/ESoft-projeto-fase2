@@ -127,10 +127,6 @@ public class GerirInscricoes extends JFrame{
 
         //////////////////////////// FIM DA SIDEBAR ////////////////////////////
 
-        acaoComboBox.setSelectedItem(null);
-        provasComboBox.setSelectedItem(null);
-        atletasComboBox.setSelectedItem(null);
-
         carregarAtletas();
         carregarProvas();
 
@@ -139,15 +135,16 @@ public class GerirInscricoes extends JFrame{
         modelo.addElement("Remover");
         acaoComboBox.setModel(modelo);
 
-        String acaoSelecionada = (String) acaoComboBox.getSelectedItem();
-        String atletaSelecionado = (String) atletasComboBox.getSelectedItem();
-        String provaSelecionada = (String) provasComboBox.getSelectedItem();
+
 
         efetuarAcao.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                if (acaoSelecionada.equals("Adicionar") && atletaSelecionado != null && provaSelecionada != null) {
+                String acaoSelecionada = (String) acaoComboBox.getSelectedItem();
+                if (acaoSelecionada.equals("Adicionar")) {
+                    String atletaSelecionado = (String) atletasComboBox.getSelectedItem();
+                    String provaSelecionada = (String) provasComboBox.getSelectedItem();
                     try {
                         File arquivoAtletas = new File("provas.txt");
                         File arquivoTemp = new File("temp.txt");
@@ -161,9 +158,22 @@ public class GerirInscricoes extends JFrame{
                             String nomeProva = dados[0].trim();
                             if (nomeProva.equals(provaSelecionada)) {
                                 // Editar a linha correspondente ao evento encontrado
-                                dados[4] = dados[4] + atletaSelecionado + ",";
+                                String[] atletas = dados[4].split(",");
+                                StringBuilder atletasString = new StringBuilder();
+                                int arrayComAtleta = 0;
+                                for (String atleta : atletas) {
+                                    if (!atleta.equals(atletaSelecionado)) {
+                                        atletasString.append(atleta).append(",");
+                                    } else {
+                                        arrayComAtleta = 1;
+                                    }
+                                }
+                                if (arrayComAtleta == 0) {
+                                    atletasString.append(atletaSelecionado).append(",");
+                                }
+                                dados[4] = atletasString.toString();
+                                writer.println(dados[0] + ":" + dados[1] + ":" + dados[2] + ":" + dados[3] + ":" + dados[4]);
                             }
-                            writer.println(linha);
                         }
 
                         reader.close();
@@ -172,8 +182,8 @@ public class GerirInscricoes extends JFrame{
                         // Substituir o arquivo original pelo arquivo temporário
                         if (arquivoAtletas.delete() && arquivoTemp.renameTo(arquivoAtletas)) {
                             JOptionPane.showMessageDialog(null, "Atleta adicionado com sucesso!");
-                            PaginaAtletas paginaAtletas = new PaginaAtletas();
-                            paginaAtletas.setVisible(true);
+                            PaginaProvas paginaProvas = new PaginaProvas();
+                            paginaProvas.setVisible(true);
                             dispose();
                         } else {
                             JOptionPane.showMessageDialog(null, "Falha ao editar o atleta.");
@@ -186,7 +196,10 @@ public class GerirInscricoes extends JFrame{
             }
         });
         efetuarAcao.addActionListener(e -> {
-            if (acaoSelecionada.equals("Remover") && atletaSelecionado != null && provaSelecionada != null) {
+            String acaoSelecionada = (String) acaoComboBox.getSelectedItem();
+            if (acaoSelecionada.equals("Remover")) {
+                String atletaSelecionado = (String) atletasComboBox.getSelectedItem();
+                String provaSelecionada = (String) provasComboBox.getSelectedItem();
                 if (confirmarAcao()) {
                     // Remover o atleta selecionado do arquivo "atletas.txt"
                     try {
@@ -215,7 +228,7 @@ public class GerirInscricoes extends JFrame{
                         writer.write(conteudoArquivo.toString());
                         writer.close();
                         JOptionPane.showMessageDialog(this, "Atleta removido com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-                        carregarAtletas();
+                        //carregarAtletas();
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
