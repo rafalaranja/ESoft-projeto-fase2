@@ -142,7 +142,7 @@ public class PaginaProvas extends JFrame{
         }
 
         // Listeners dos botões
-        adicionarProvasButton.addActionListener(e -> {
+        /*adicionarProvasButton.addActionListener(e -> {
             AdicionarProva adicionarProva = new AdicionarProva();
             adicionarProva.setVisible(true);
             dispose();
@@ -170,6 +170,6 @@ public class PaginaProvas extends JFrame{
             AdicionarAtletaÀProva adicionarAtletaÀProva = new AdicionarAtletaÀProva();
             adicionarAtletaÀProva.setVisible(true);
             dispose();
-        });
+        });*/
     }
 }

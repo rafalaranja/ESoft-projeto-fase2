@@ -2,10 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 
-public class ApagarAtletas extends JFrame{
+public class GerirInscricoes extends JFrame{
     private JPanel painelPrincipal;
     private JButton atletasButtonSide;
     private JButton estatisticasButtonSide;
@@ -13,11 +12,13 @@ public class ApagarAtletas extends JFrame{
     private JButton eventosButtonSide;
     private JButton loginButtonSide;
     private JButton menuInicialButtonSide;
+    private JButton provasButtonSide;
     private JLabel nomeUser;
     private JLabel fotoUser;
-    private JComboBox atletaComboBox;
-    private JButton apagarButton;
-    private JButton provasButtonSide;
+    private JComboBox atletasComboBox;
+    private JButton efetuarAcao;
+    private JComboBox acaoComboBox;
+    private JComboBox provasComboBox;
 
     private void carregarAtletas() {
         // Ler os eventos do arquivo "atletas.txt" e atualizar o modelo da ComboBox
@@ -30,53 +31,47 @@ public class ApagarAtletas extends JFrame{
                 modelo.addElement(dados[0].trim());
             }
             reader.close();
-            atletaComboBox.setModel(modelo);
+            atletasComboBox.setModel(modelo);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private boolean confirmarRemocaoAtleta() {
+    public void carregarProvas(){
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("provas.txt"));
+            String linha;
+            DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
+            while ((linha = reader.readLine()) != null) {
+                String[] dados = linha.split(":");
+                modelo.addElement(dados[3].trim());
+            }
+            reader.close();
+            provasComboBox.setModel(modelo);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private boolean confirmarAcao() {
         int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente remover o atleta selecionado?", "Confirmação", JOptionPane.YES_NO_OPTION);
         return resposta == JOptionPane.YES_OPTION;
     }
 
-    private void removerAtleta(String atleta) {
-        // Implemente o código para remover o atleta do arquivo "atletas.txt"
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader("atletas.txt"));
-            StringBuilder conteudoArquivo = new StringBuilder();
-            String linha;
-            while ((linha = reader.readLine()) != null) {
-                if (!linha.startsWith(atleta + ":")) {
-                    conteudoArquivo.append(linha).append("\n");
-                }
-            }
-            reader.close();
-
-            // Escrever o conteúdo atualizado no arquivo
-            FileWriter writer = new FileWriter("atletas.txt");
-            writer.write(conteudoArquivo.toString());
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public ApagarAtletas(){
+    public GerirInscricoes() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(painelPrincipal);
         pack();
 
         //////////////////////////// SIDEBAR ////////////////////////////
 
-
         // colocar a foto e nome do user logado
-        if (Login.nomeUser != null){
+        if (Login.nomeUser != null) {
             nomeUser.setText(Login.nomeUser); //mostrar o nome do user logado
         } else {
             nomeUser.setText("Guest");
-        }if (!nomeUser.getText().equals("Guest")){
+        }
+        if (!nomeUser.getText().equals("Guest")) {
             loginButtonSide.setVisible(false);
         }
 
@@ -132,19 +127,46 @@ public class ApagarAtletas extends JFrame{
 
         //////////////////////////// FIM DA SIDEBAR ////////////////////////////
 
-        carregarAtletas();
+        acaoComboBox.setSelectedItem(null);
+        provasComboBox.setSelectedItem(null);
+        atletasComboBox.setSelectedItem(null);
 
-        apagarButton.addActionListener(e -> {
-            String eventoSelecionado = (String) atletaComboBox.getSelectedItem();
-            if (eventoSelecionado != null) {
-                if (confirmarRemocaoAtleta()) {
-                    removerAtleta(eventoSelecionado);
-                    JOptionPane.showMessageDialog(this, "Atleta removido com sucesso!");
-                    carregarAtletas();
+        carregarAtletas();
+        carregarProvas();
+
+        DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
+        modelo.addElement("Adicionar");
+        modelo.addElement("Remover");
+        acaoComboBox.setModel(modelo);
+
+        efetuarAcao.addActionListener(e -> {
+            if (acaoComboBox.getSelectedItem().equals("Adicionar")) {
+                if(confirmarAcao()){
+
                 }
-            } else {
-                JOptionPane.showMessageDialog(this, "Nenhum atleta selecionado.");
+            } else if (acaoComboBox.getSelectedItem().equals("Remover")) {
+                if (confirmarAcao()) {
+                    // Remover o atleta selecionado do arquivo "atletas.txt"
+                    try {
+                        BufferedReader reader = new BufferedReader(new FileReader("atletas.txt"));
+                        String linha;
+                        StringBuilder texto = new StringBuilder();
+                        while ((linha = reader.readLine()) != null) {
+                            String[] dados = linha.split(":");
+                            if (!dados[0].trim().equals(atletasComboBox.getSelectedItem())) {
+                                texto.append(linha).append("\n");
+                            }
+                        }
+                        reader.close();
+                        Util.escreverArquivo("atletas.txt", texto.toString());
+                        JOptionPane.showMessageDialog(this, "Atleta removido com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                        carregarAtletas();
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                }
             }
         });
+
     }
 }
