@@ -41,21 +41,21 @@ public class ApagarProvas extends JFrame {
         return resposta == JOptionPane.YES_OPTION;
     }
 
-    private void removerProva(String evento) {
+    private void removerProva(String prova) {
         //Código para remover o evento do arquivo "provas.txt"
         try {
             BufferedReader reader = new BufferedReader(new FileReader("provas.txt"));
             StringBuilder conteudoArquivo = new StringBuilder();
             String linha;
             while ((linha = reader.readLine()) != null) {
-                if (!linha.startsWith(evento + ":")) {
+                if (!linha.startsWith(prova + ":")) {
                     conteudoArquivo.append(linha).append("\n");
                 }
             }
             reader.close();
 
             // Escrever o conteúdo atualizado no arquivo
-            FileWriter writer = new FileWriter("eventos.txt");
+            FileWriter writer = new FileWriter("provas.txt");
             writer.write(conteudoArquivo.toString());
             writer.close();
         } catch (IOException e) {
