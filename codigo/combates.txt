@@ -1,2 +1,2 @@
-João Silva:Santino Marella:Prova 65 Masculino:10:16:Santino Marella
-Antonio Ferreira:Prova 65 Masculino
+Prova 65 Masculino:combate1:João Silva:Santino Marella:10:16:Santino Marella
+Prova 65 Masculino:combate2:Antonio Ferreira:Santino Marella

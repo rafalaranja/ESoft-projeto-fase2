@@ -17,7 +17,7 @@ public class PaginaCombates extends JFrame {
     private JLabel nomeUser;
     private JLabel fotoUser;
     private JLabel adicionarEventosButton;
-    private JButton editarButton;
+    private JButton registarButton;
     private JComboBox combateComboBox;
     private JLabel atleta2Label;
     private JLabel atleta1Label;
@@ -33,8 +33,10 @@ public class PaginaCombates extends JFrame {
             String linha;
             DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
             while ((linha = reader.readLine()) != null) {
-                String[] dados = linha.split(":");
-                modelo.addElement(dados[0].trim());
+                if (linha.startsWith(prova + ":")) {            //os combates que começam com a prova selecionada
+                    String[] dados = linha.split(":");
+                    modelo.addElement(dados[1].trim());
+                }
             }
             reader.close();
             combateComboBox.setModel(modelo);
@@ -42,6 +44,7 @@ public class PaginaCombates extends JFrame {
             e.printStackTrace();
         }
     }
+
 
     public PaginaCombates(String prova) {
         this.prova = prova;
@@ -115,6 +118,8 @@ public class PaginaCombates extends JFrame {
 
         //////////////////////////// FIM DA SIDEBAR ////////////////////////////
 
+        carregarCombatesDropbox();
 
+        
     }
 }
