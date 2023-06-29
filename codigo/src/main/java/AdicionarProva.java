@@ -143,7 +143,5 @@ public class AdicionarProva extends JFrame{
                 JOptionPane.showMessageDialog(null, "Erro ao adicionar prova!");
             }
         });
-
-
     }
 }

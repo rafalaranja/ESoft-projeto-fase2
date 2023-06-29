@@ -145,13 +145,13 @@ public class PaginaProvas extends JFrame{
             adicionarProva.setVisible(true);
             dispose();
         });
-        /*
+
         editarProvasButton.addActionListener(e -> {
-            EditarProva editarProva = new EditarProva();
+            EditarProvas editarProva = new EditarProvas();
             editarProva.setVisible(true);
             dispose();
         });
-
+        /*
         eliminarProvasButton.addActionListener(e -> {
             EliminarProva eliminarProva = new EliminarProva();
             eliminarProva.setVisible(true);
