@@ -1,6 +1,6 @@
 import javax.swing.*;
 
-public class AdicionarProva {
+public class AdicionarProva extends JFrame{
     private JPanel painelPrincipal;
     private JButton atletasButtonSide;
     private JButton estatisticasButtonSide;
@@ -15,4 +15,5 @@ public class AdicionarProva {
     private JButton adicionarButton;
     private JComboBox generoComboBox;
     private JComboBox catPesoComboBox;
+
 }
