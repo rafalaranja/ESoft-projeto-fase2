@@ -23,17 +23,6 @@
         </properties>
         <border type="none"/>
         <children>
-          <component id="14645" class="javax.swing.JButton" binding="atletasButtonSide">
-            <constraints>
-              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <background color="-13947344"/>
-              <font name="Consolas" size="18"/>
-              <foreground color="-1"/>
-              <text value="Atletas"/>
-            </properties>
-          </component>
           <component id="98a3b" class="javax.swing.JButton" binding="estatisticasButtonSide">
             <constraints>
               <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
@@ -74,13 +63,24 @@
           </component>
           <component id="f672c" class="javax.swing.JButton" binding="eventosButtonSide">
             <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <background color="-13947344"/>
               <font name="Consolas" size="18"/>
               <foreground color="-1"/>
               <text value="Eventos"/>
+            </properties>
+          </component>
+          <component id="14645" class="javax.swing.JButton" binding="atletasButtonSide">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-13947344"/>
+              <font name="Consolas" size="18"/>
+              <foreground color="-1"/>
+              <text value="Atletas"/>
             </properties>
           </component>
         </children>
