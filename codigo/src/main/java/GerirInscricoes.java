@@ -1,8 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.*;
 
 public class GerirInscricoes extends JFrame{
     private JPanel painelPrincipal;
@@ -44,7 +44,7 @@ public class GerirInscricoes extends JFrame{
             DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
             while ((linha = reader.readLine()) != null) {
                 String[] dados = linha.split(":");
-                modelo.addElement(dados[3].trim());
+                modelo.addElement(dados[0].trim());
             }
             reader.close();
             provasComboBox.setModel(modelo);
@@ -139,26 +139,81 @@ public class GerirInscricoes extends JFrame{
         modelo.addElement("Remover");
         acaoComboBox.setModel(modelo);
 
-        efetuarAcao.addActionListener(e -> {
-            if (acaoComboBox.getSelectedItem().equals("Adicionar")) {
-                if(confirmarAcao()){
+        String acaoSelecionada = (String) acaoComboBox.getSelectedItem();
+        String atletaSelecionado = (String) atletasComboBox.getSelectedItem();
+        String provaSelecionada = (String) provasComboBox.getSelectedItem();
 
+        efetuarAcao.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                if (acaoSelecionada.equals("Adicionar") && atletaSelecionado != null && provaSelecionada != null) {
+                    try {
+                        File arquivoAtletas = new File("provas.txt");
+                        File arquivoTemp = new File("temp.txt");
+
+                        BufferedReader reader = new BufferedReader(new FileReader(arquivoAtletas));
+                        PrintWriter writer = new PrintWriter(new FileWriter(arquivoTemp));
+
+                        String linha;
+                        while ((linha = reader.readLine()) != null) {
+                            String[] dados = linha.split(":");
+                            String nomeProva = dados[0].trim();
+                            if (nomeProva.equals(provaSelecionada)) {
+                                // Editar a linha correspondente ao evento encontrado
+                                dados[4] = dados[4] + atletaSelecionado + ",";
+                            }
+                            writer.println(linha);
+                        }
+
+                        reader.close();
+                        writer.close();
+
+                        // Substituir o arquivo original pelo arquivo temporário
+                        if (arquivoAtletas.delete() && arquivoTemp.renameTo(arquivoAtletas)) {
+                            JOptionPane.showMessageDialog(null, "Atleta adicionado com sucesso!");
+                            PaginaAtletas paginaAtletas = new PaginaAtletas();
+                            paginaAtletas.setVisible(true);
+                            dispose();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Falha ao editar o atleta.");
+                        }
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                        JOptionPane.showMessageDialog(null, "Erro ao acessar o arquivo eventos.txt");
+                    }
                 }
-            } else if (acaoComboBox.getSelectedItem().equals("Remover")) {
+            }
+        });
+        efetuarAcao.addActionListener(e -> {
+            if (acaoSelecionada.equals("Remover") && atletaSelecionado != null && provaSelecionada != null) {
                 if (confirmarAcao()) {
                     // Remover o atleta selecionado do arquivo "atletas.txt"
                     try {
-                        BufferedReader reader = new BufferedReader(new FileReader("atletas.txt"));
+                        BufferedReader reader = new BufferedReader(new FileReader("provas.txt"));
+                        StringBuilder conteudoArquivo = new StringBuilder();
                         String linha;
-                        StringBuilder texto = new StringBuilder();
                         while ((linha = reader.readLine()) != null) {
                             String[] dados = linha.split(":");
-                            if (!dados[0].trim().equals(atletasComboBox.getSelectedItem())) {
-                                texto.append(linha).append("\n");
+                            if (!dados[4].contains(atletaSelecionado)) {
+                                conteudoArquivo.append(linha).append("\n");
+                            }
+                            else {
+                                String[] atletas = dados[4].split(",");
+                                StringBuilder atletasString = new StringBuilder();
+                                for (String atleta : atletas) {
+                                    if (!atleta.equals(atletaSelecionado)) {
+                                        atletasString.append(atleta).append(",");
+                                    }
+                                }
+                                dados[4] = atletasString.toString();
+                                conteudoArquivo.append(dados[0]).append(":").append(dados[1]).append(":").append(dados[2]).append(":").append(dados[3]).append(":").append(dados[4]).append("\n");
                             }
                         }
                         reader.close();
-                        Util.escreverArquivo("atletas.txt", texto.toString());
+                        FileWriter writer = new FileWriter("provas.txt");
+                        writer.write(conteudoArquivo.toString());
+                        writer.close();
                         JOptionPane.showMessageDialog(this, "Atleta removido com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                         carregarAtletas();
                     } catch (IOException ex) {
@@ -167,6 +222,5 @@ public class GerirInscricoes extends JFrame{
                 }
             }
         });
-
     }
 }

@@ -1,8 +1,6 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -23,7 +21,7 @@ public class PaginaProvas extends JFrame{
     private JButton importarProvasButton;
     private JButton eliminarProvasButton;
     private JButton provasButtonSide;
-    private JButton adicAtletaÀProvaButton;
+    private JButton gerirInscricoesButton;
     private JComboBox comboBox1;
 
     private void carregarProvas(String[] colunas) {
@@ -138,7 +136,7 @@ public class PaginaProvas extends JFrame{
             adicionarProvasButton.setVisible(false);
             editarProvasButton.setVisible(false);
             eliminarProvasButton.setVisible(false);
-            adicAtletaÀProvaButton.setVisible(false);
+            gerirInscricoesButton.setVisible(false);
         }
 
         // Listeners dos botões
@@ -164,12 +162,12 @@ public class PaginaProvas extends JFrame{
             ImportarProva importarProva = new ImportarProva();
             importarProva.setVisible(true);
             dispose();
-        });
-
-        adicAtletaÀProvaButton.addActionListener(e -> {
-            AdicionarAtletaÀProva adicionarAtletaÀProva = new AdicionarAtletaÀProva();
-            adicionarAtletaÀProva.setVisible(true);
-            dispose();
         });*/
+
+        gerirInscricoesButton.addActionListener(e -> {
+            GerirInscricoes gerirInscricoes = new GerirInscricoes();
+            gerirInscricoes.setVisible(true);
+            dispose();
+        });
     }
 }

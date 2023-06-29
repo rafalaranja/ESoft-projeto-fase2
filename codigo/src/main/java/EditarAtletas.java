@@ -120,8 +120,8 @@ public class EditarAtletas extends JFrame{
         editarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String eventoSelecionado = (String) atletaComboBox.getSelectedItem();
-                if (eventoSelecionado != null) {
+                String atletaSelecionado = (String) atletaComboBox.getSelectedItem();
+                if (atletaSelecionado != null) {
                     // Implemente a lógica para editar o evento com as informações dos campos
                     String nome = nomeTextField.getText();
                     String genero = (String) generoComboBox.getSelectedItem();
@@ -139,8 +139,8 @@ public class EditarAtletas extends JFrame{
                         String linha;
                         while ((linha = reader.readLine()) != null) {
                             String[] dados = linha.split(":");
-                            String nomeEvento = dados[0].trim();
-                            if (nomeEvento.equals(eventoSelecionado)) {
+                            String nomeAtleta = dados[0].trim();
+                            if (nomeAtleta.equals(atletaSelecionado)) {
                                 // Editar a linha correspondente ao evento encontrado
                                 linha = nome + ":" + genero + ":" + dataNascimento + ":" + equipa + ":" + nacionalidade;
                             }
