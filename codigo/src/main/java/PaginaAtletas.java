@@ -142,13 +142,12 @@ public class PaginaAtletas extends JFrame{
         });
 
 
-        /*editarAtletasButton.addActionListener(new ActionListener() {
+        editarAtletasButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 EditarAtletas editarAtletas = new EditarAtletas();
                 editarAtletas.setVisible(true);
                 dispose();
-
             }
         });
 
@@ -159,7 +158,7 @@ public class PaginaAtletas extends JFrame{
                 apagarAtletas.setVisible(true);
                 dispose();
             }
-        });*/
+        });
 
         if (nomeUser.getText().equals("Guest")) {
             importarAtletasButton.setVisible(false);

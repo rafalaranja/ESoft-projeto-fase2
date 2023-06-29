@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -17,10 +18,10 @@ public class ApagarAtletas extends JFrame{
     private JComboBox atletaComboBox;
     private JButton apagarButton;
 
-    private void carregarEventos() {
-        // Ler os eventos do arquivo "eventos.txt" e atualizar o modelo da ComboBox
+    private void carregarAtletas() {
+        // Ler os eventos do arquivo "atletas.txt" e atualizar o modelo da ComboBox
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("eventos.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader("atletas.txt"));
             String linha;
             DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
             while ((linha = reader.readLine()) != null) {
@@ -59,5 +60,84 @@ public class ApagarAtletas extends JFrame{
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public ApagarAtletas(){
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setContentPane(painelPrincipal);
+        pack();
+
+        //////////////////////////// SIDEBAR ////////////////////////////
+
+
+        // colocar a foto e nome do user logado
+        if (Login.nomeUser != null){
+            nomeUser.setText(Login.nomeUser); //mostrar o nome do user logado
+        } else {
+            nomeUser.setText("Guest");
+        }if (!nomeUser.getText().equals("Guest")){
+            loginButtonSide.setVisible(false);
+        }
+
+        ImageIcon imagemIcon = new ImageIcon("fotos/profile.png"); // Caminho para a imagem
+        Image imagem = imagemIcon.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT); // Definir tamanho da imagem
+        ImageIcon icon = new ImageIcon(imagem); // Criar o ImageIcon com a imagem
+        fotoUser.setIcon(icon);
+
+
+        // Listeners dos botões
+
+        eventosButtonSide.addActionListener(e -> {
+            PaginaEventos paginaEventos = new PaginaEventos();
+            paginaEventos.setVisible(true);
+            dispose();
+        });
+
+        atletasButtonSide.addActionListener(e -> {
+            PaginaAtletas paginaAtletas = new PaginaAtletas();
+            paginaAtletas.setVisible(true);
+            dispose();
+        });
+
+        estatisticasButtonSide.addActionListener(e -> {
+            PaginaEstatisticas paginaEstatisticas = new PaginaEstatisticas();
+            paginaEstatisticas.setVisible(true);
+            dispose();
+        });
+
+        loginButtonSide.addActionListener(e -> {
+            Login login = new Login();
+            login.setVisible(true);
+            dispose();
+        });
+
+        sobreButtonSide.addActionListener(e -> {
+            Sobre sobre = new Sobre();
+            sobre.setVisible(true);
+            dispose();
+        });
+
+        menuInicialButtonSide.addActionListener(e -> {
+            PaginaInicial paginaInicial = new PaginaInicial();
+            paginaInicial.setVisible(true);
+            dispose();
+        });
+
+        //////////////////////////// FIM DA SIDEBAR ////////////////////////////
+
+        carregarAtletas();
+
+        apagarButton.addActionListener(e -> {
+            String eventoSelecionado = (String) atletaComboBox.getSelectedItem();
+            if (eventoSelecionado != null) {
+                if (confirmarRemocaoAtleta(eventoSelecionado)) {
+                    removerAtleta(eventoSelecionado);
+                    JOptionPane.showMessageDialog(this, "Atleta removido com sucesso!");
+                    carregarAtletas();
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Nenhum atleta selecionado.");
+            }
+        });
     }
 }
