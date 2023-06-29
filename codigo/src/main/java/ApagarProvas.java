@@ -1,11 +1,11 @@
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
-public class PaginaProvas extends JFrame{
+public class ApagarProvas extends JFrame {
     private JPanel painelPrincipal;
     private JButton atletasButtonSide;
     private JButton estatisticasButtonSide;
@@ -13,36 +13,58 @@ public class PaginaProvas extends JFrame{
     private JButton eventosButtonSide;
     private JButton loginButtonSide;
     private JButton menuInicialButtonSide;
+    private JButton provasButtonSide;
     private JLabel nomeUser;
     private JLabel fotoUser;
-    private JTable table1;
-    private JButton adicionarProvasButton;
-    private JButton editarProvasButton;
-    private JButton importarProvasButton;
-    private JButton eliminarProvasButton;
-    private JButton provasButtonSide;
-    private JButton gerirInscricoesButton;
-    private JComboBox comboBox1;
+    private JComboBox provasComboBox;
+    private JButton apagarButton;
 
-    private void carregarProvas(String[] colunas) {
-        // Ler os eventos do arquivo "provas.txt" e atualizar o modelo da tabela
+    private void carregarProvas() {
+        // Ler as provas do arquivo "provas.txt" e atualizar o modelo da ComboBox
         try {
             BufferedReader reader = new BufferedReader(new FileReader("provas.txt"));
             String linha;
-            DefaultTableModel modelo = (DefaultTableModel) table1.getModel();
-            modelo.setRowCount(0); // Limpar os dados existentes na tabela
-            modelo.addRow(colunas);
+            DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
             while ((linha = reader.readLine()) != null) {
                 String[] dados = linha.split(":");
-                modelo.addRow(dados);
+                modelo.addElement(dados[0].trim());
             }
             reader.close();
+            provasComboBox.setModel(modelo);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public PaginaProvas() {
+    private boolean confirmarRemocaoProva(String evento) {
+        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente remover a prova selecionada?", "Confirmação", JOptionPane.YES_NO_OPTION);
+        return resposta == JOptionPane.YES_OPTION;
+    }
+
+    private void removerProva(String evento) {
+        //Código para remover o evento do arquivo "provas.txt"
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("provas.txt"));
+            StringBuilder conteudoArquivo = new StringBuilder();
+            String linha;
+            while ((linha = reader.readLine()) != null) {
+                if (!linha.startsWith(evento + ":")) {
+                    conteudoArquivo.append(linha).append("\n");
+                }
+            }
+            reader.close();
+
+            // Escrever o conteúdo atualizado no arquivo
+            FileWriter writer = new FileWriter("eventos.txt");
+            writer.write(conteudoArquivo.toString());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public ApagarProvas(){
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(painelPrincipal);
         pack();
@@ -51,12 +73,11 @@ public class PaginaProvas extends JFrame{
 
 
         // colocar a foto e nome do user logado
-        if (Login.nomeUser != null) {
+        if (Login.nomeUser != null){
             nomeUser.setText(Login.nomeUser); //mostrar o nome do user logado
         } else {
             nomeUser.setText("Guest");
-        }
-        if (!nomeUser.getText().equals("Guest")) {
+        }if (!nomeUser.getText().equals("Guest")){
             loginButtonSide.setVisible(false);
         }
 
@@ -112,62 +133,19 @@ public class PaginaProvas extends JFrame{
 
         //////////////////////////// FIM DA SIDEBAR ////////////////////////////
 
-        // Criar uma matriz de eventos (supondo que você já tenha os eventos em uma matriz/lista)
-        String[][] eventos = {{"Prova 1", "Data 1"}, {"Prova 2", "Data 2"}, {"Prova 3", "Data 3"}};
+        carregarProvas();
 
-        // Criar um array de nomes das colunas
-        String[] colunas = {"Nome", "Género", "Categoria de Peso"};
-
-
-        // Criar um DefaultTableModel com os eventos e colunas
-        DefaultTableModel modelo = new DefaultTableModel(eventos, colunas){
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false; // Impede a tabela de ser editada pelo utilizador
+        apagarButton.addActionListener(e -> {
+            String eventoSelecionado = (String) provasComboBox.getSelectedItem();
+            if (eventoSelecionado != null) {
+                if (confirmarRemocaoProva(eventoSelecionado)) {
+                    removerProva(eventoSelecionado);
+                    JOptionPane.showMessageDialog(this, "Prova removida com sucesso!");
+                    carregarProvas();
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Nenhuma prova selecionado.");
             }
-        };
-
-        table1.setModel(modelo);
-        carregarProvas(colunas); // Carregar os eventos do arquivo "provas.txt"
-
-        //ocultar os botoões caso o user não esteja logado
-        if (nomeUser.getText().equals("Guest")) {
-            importarProvasButton.setVisible(false);
-            adicionarProvasButton.setVisible(false);
-            editarProvasButton.setVisible(false);
-            eliminarProvasButton.setVisible(false);
-            gerirInscricoesButton.setVisible(false);
-        }
-
-        // Listeners dos botões
-        adicionarProvasButton.addActionListener(e -> {
-            AdicionarProva adicionarProva = new AdicionarProva();
-            adicionarProva.setVisible(true);
-            dispose();
-        });
-
-        editarProvasButton.addActionListener(e -> {
-            EditarProvas editarProva = new EditarProvas();
-            editarProva.setVisible(true);
-            dispose();
-        });
-
-        eliminarProvasButton.addActionListener(e -> {
-            ApagarProvas apagarProvas = new ApagarProvas();
-            apagarProvas.setVisible(true);
-            dispose();
-        });
-
-        importarProvasButton.addActionListener(e -> {
-            ImportarProvas importarProva = new ImportarProvas();
-            importarProva.setVisible(true);
-            dispose();
-        });
-
-        gerirInscricoesButton.addActionListener(e -> {
-            GerirInscricoes gerirInscricoes = new GerirInscricoes();
-            gerirInscricoes.setVisible(true);
-            dispose();
         });
     }
 }

@@ -1,11 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.*;
 
-public class ApagarEventos extends JFrame{
+public class ImportarProvas extends JFrame {
     private JPanel painelPrincipal;
     private JButton atletasButtonSide;
     private JButton estatisticasButtonSide;
@@ -13,59 +12,12 @@ public class ApagarEventos extends JFrame{
     private JButton eventosButtonSide;
     private JButton loginButtonSide;
     private JButton menuInicialButtonSide;
+    private JButton provasButtonSide;
     private JLabel nomeUser;
     private JLabel fotoUser;
-    private JComboBox eventoComboBox;
-    private JButton apagarButton;
-    private JButton provasButtonSide;
+    private JButton importarButton;
 
-
-    private void carregarEventos() {
-        // Ler os eventos do arquivo "eventos.txt" e atualizar o modelo da ComboBox
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader("eventos.txt"));
-            String linha;
-            DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
-            while ((linha = reader.readLine()) != null) {
-                String[] dados = linha.split(":");
-                modelo.addElement(dados[0].trim());
-            }
-            reader.close();
-            eventoComboBox.setModel(modelo);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private boolean confirmarRemocaoEvento(String evento) {
-        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente remover o evento selecionado?", "Confirmação", JOptionPane.YES_NO_OPTION);
-        return resposta == JOptionPane.YES_OPTION;
-    }
-
-    private void removerEvento(String evento) {
-        // Código para remover o evento do arquivo "eventos.txt"
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader("eventos.txt"));
-            StringBuilder conteudoArquivo = new StringBuilder();
-            String linha;
-            while ((linha = reader.readLine()) != null) {
-                if (!linha.startsWith(evento + ":")) {
-                    conteudoArquivo.append(linha).append("\n");
-                }
-            }
-            reader.close();
-
-            // Escrever o conteúdo atualizado no arquivo
-            FileWriter writer = new FileWriter("eventos.txt");
-            writer.write(conteudoArquivo.toString());
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    public ApagarEventos(){
+    public ImportarProvas() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(painelPrincipal);
         pack();
@@ -134,19 +86,43 @@ public class ApagarEventos extends JFrame{
 
         //////////////////////////// FIM DA SIDEBAR ////////////////////////////
 
-        carregarEventos();
 
-        apagarButton.addActionListener(e -> {
-            String eventoSelecionado = (String) eventoComboBox.getSelectedItem();
-            if (eventoSelecionado != null) {
-                if (confirmarRemocaoEvento(eventoSelecionado)) {
-                    removerEvento(eventoSelecionado);
-                    JOptionPane.showMessageDialog(this, "Evento removido com sucesso!");
-                    carregarEventos();
+        // Listener do botão de importar
+        importarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setDialogTitle("Importar Provas");
+                fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+                fileChooser.setMultiSelectionEnabled(true);
+
+                int option = fileChooser.showOpenDialog(ImportarProvas.this);
+                if (option == JFileChooser.APPROVE_OPTION) {
+                    File[] files = fileChooser.getSelectedFiles();
+                    importarProvas(files);
                 }
-            } else {
-                JOptionPane.showMessageDialog(this, "Nenhum evento selecionado.");
             }
         });
+    }
+
+    private void importarProvas(File[] files) {
+        try {
+            FileWriter writer = new FileWriter("provas.txt", true);
+
+            for (File file : files) {
+                BufferedReader reader = new BufferedReader(new FileReader(file));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    writer.write(line + "\n");
+                }
+                reader.close();
+            }
+
+            writer.close();
+            JOptionPane.showMessageDialog(null, "Provas importadas com sucesso!");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao importar provas.");
+        }
     }
 }
