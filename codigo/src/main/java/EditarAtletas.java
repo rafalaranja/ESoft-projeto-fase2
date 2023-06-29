@@ -21,6 +21,7 @@ public class EditarAtletas extends JFrame{
     private JFormattedTextField dataNascimentoTextField;
     private JComboBox atletaComboBox;
     private JTextField nacionalidadeTextField;
+    private JButton provasButtonSide;
 
     private void carregarAtletas() {
         // Ler os eventos do arquivo "eventos.txt" e atualizar o modelo da ComboBox
@@ -73,6 +74,12 @@ public class EditarAtletas extends JFrame{
         atletasButtonSide.addActionListener(e -> {
             PaginaAtletas paginaAtletas = new PaginaAtletas();
             paginaAtletas.setVisible(true);
+            dispose();
+        });
+
+        provasButtonSide.addActionListener(e ->  {
+            PaginaProvas paginaProvas = new PaginaProvas();
+            paginaProvas.setVisible(true);
             dispose();
         });
 

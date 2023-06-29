@@ -1,5 +1,11 @@
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class PaginaProvas extends JFrame{
     private JPanel painelPrincipal;
@@ -16,6 +22,26 @@ public class PaginaProvas extends JFrame{
     private JButton editarProvasButton;
     private JButton importarProvasButton;
     private JButton eliminarProvasButton;
+    private JButton provasButtonSide;
+    private JButton adicAtletaÀProvaButton;
+
+    private void carregarProvas(String[] colunas) {
+        // Ler os eventos do arquivo "provas.txt" e atualizar o modelo da tabela
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("provas.txt"));
+            String linha;
+            DefaultTableModel modelo = (DefaultTableModel) table1.getModel();
+            modelo.setRowCount(0); // Limpar os dados existentes na tabela
+            modelo.addRow(colunas);
+            while ((linha = reader.readLine()) != null) {
+                String[] dados = linha.split(":");
+                modelo.addRow(dados);
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public PaginaProvas() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -26,12 +52,12 @@ public class PaginaProvas extends JFrame{
 
 
         // colocar a foto e nome do user logado
-        if (Login.nomeUser != null){
+        if (Login.nomeUser != null) {
             nomeUser.setText(Login.nomeUser); //mostrar o nome do user logado
         } else {
             nomeUser.setText("Guest");
         }
-        if (!nomeUser.getText().equals("Guest")){
+        if (!nomeUser.getText().equals("Guest")) {
             loginButtonSide.setVisible(false);
         }
 
@@ -52,6 +78,12 @@ public class PaginaProvas extends JFrame{
         atletasButtonSide.addActionListener(e -> {
             PaginaAtletas paginaAtletas = new PaginaAtletas();
             paginaAtletas.setVisible(true);
+            dispose();
+        });
+
+        provasButtonSide.addActionListener(e ->  {
+            PaginaProvas paginaProvas = new PaginaProvas();
+            paginaProvas.setVisible(true);
             dispose();
         });
 
@@ -80,4 +112,63 @@ public class PaginaProvas extends JFrame{
         });
 
         //////////////////////////// FIM DA SIDEBAR ////////////////////////////
+
+        // Criar uma matriz de eventos (supondo que você já tenha os eventos em uma matriz/lista)
+        String[][] eventos = {{"Prova 1", "Data 1"}, {"Prova 2", "Data 2"}, {"Prova 3", "Data 3"}};
+
+        // Criar um array de nomes das colunas
+        String[] colunas = {"Nome", "Género", "Categoria de Peso"};
+
+
+        // Criar um DefaultTableModel com os eventos e colunas
+        DefaultTableModel modelo = new DefaultTableModel(eventos, colunas){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // Impede a tabela de ser editada pelo utilizador
+            }
+        };
+
+        table1.setModel(modelo);
+        carregarProvas(colunas); // Carregar os eventos do arquivo "provas.txt"
+
+        //ocultar os botoões caso o user não esteja logado
+        if (nomeUser.getText().equals("Guest")) {
+            importarProvasButton.setVisible(false);
+            adicionarProvasButton.setVisible(false);
+            editarProvasButton.setVisible(false);
+            eliminarProvasButton.setVisible(false);
+            adicAtletaÀProvaButton.setVisible(false);
+        }
+
+        // Listeners dos botões
+        adicionarProvasButton.addActionListener(e -> {
+            AdicionarProva adicionarProva = new AdicionarProva();
+            adicionarProva.setVisible(true);
+            dispose();
+        });
+
+        editarProvasButton.addActionListener(e -> {
+            EditarProva editarProva = new EditarProva();
+            editarProva.setVisible(true);
+            dispose();
+        });
+
+        eliminarProvasButton.addActionListener(e -> {
+            EliminarProva eliminarProva = new EliminarProva();
+            eliminarProva.setVisible(true);
+            dispose();
+        });
+
+        importarProvasButton.addActionListener(e -> {
+            ImportarProva importarProva = new ImportarProva();
+            importarProva.setVisible(true);
+            dispose();
+        });
+
+        adicAtletaÀProvaButton.addActionListener(e -> {
+            AdicionarAtletaÀProva adicionarAtletaÀProva = new AdicionarAtletaÀProva();
+            adicionarAtletaÀProva.setVisible(true);
+            dispose();
+        });
+    }
 }

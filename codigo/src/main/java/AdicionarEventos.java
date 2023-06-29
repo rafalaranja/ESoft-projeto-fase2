@@ -22,6 +22,7 @@ public class AdicionarEventos extends JFrame {
     private JTextArea textArea1;
     private JButton loginButtonSide;
     private JButton menuInicialButtonSide;
+    private JButton provasButtonSide;
 
     // Restringir as opções na JComboBox
     private DefaultComboBoxModel<String> arteMarcialComboBoxModel = new DefaultComboBoxModel<>(
@@ -105,6 +106,11 @@ public class AdicionarEventos extends JFrame {
             dispose();
         });
 
+        provasButtonSide.addActionListener(e ->  {
+            PaginaProvas paginaProvas = new PaginaProvas();
+            paginaProvas.setVisible(true);
+            dispose();
+        });
 
         estatisticasButtonSide.addActionListener(e -> {
             PaginaEstatisticas paginaEstatisticas = new PaginaEstatisticas();

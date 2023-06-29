@@ -15,6 +15,7 @@ public class ImportarEventos extends JFrame{
     private JLabel nomeUser;
     private JLabel fotoUser;
     private JButton importarButton;
+    private JButton provasButtonSide;
 
     public ImportarEventos() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -50,6 +51,12 @@ public class ImportarEventos extends JFrame{
         atletasButtonSide.addActionListener(e -> {
             PaginaAtletas paginaAtletas = new PaginaAtletas();
             paginaAtletas.setVisible(true);
+            dispose();
+        });
+
+        provasButtonSide.addActionListener(e ->  {
+            PaginaProvas paginaProvas = new PaginaProvas();
+            paginaProvas.setVisible(true);
             dispose();
         });
 
