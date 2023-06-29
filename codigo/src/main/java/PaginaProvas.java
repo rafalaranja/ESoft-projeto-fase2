@@ -140,18 +140,18 @@ public class PaginaProvas extends JFrame{
         }
 
         // Listeners dos botões
-        /*adicionarProvasButton.addActionListener(e -> {
+        adicionarProvasButton.addActionListener(e -> {
             AdicionarProva adicionarProva = new AdicionarProva();
             adicionarProva.setVisible(true);
             dispose();
         });
 
         editarProvasButton.addActionListener(e -> {
-            EditarProva editarProva = new EditarProva();
+            EditarProvas editarProva = new EditarProvas();
             editarProva.setVisible(true);
             dispose();
         });
-
+        /*
         eliminarProvasButton.addActionListener(e -> {
             EliminarProva eliminarProva = new EliminarProva();
             eliminarProva.setVisible(true);
