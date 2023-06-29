@@ -24,6 +24,7 @@ public class PaginaProvas extends JFrame{
     private JButton eliminarProvasButton;
     private JButton provasButtonSide;
     private JButton adicAtletaÀProvaButton;
+    private JComboBox comboBox1;
 
     private void carregarProvas(String[] colunas) {
         // Ler os eventos do arquivo "provas.txt" e atualizar o modelo da tabela
