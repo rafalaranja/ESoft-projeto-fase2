@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="PaginaProvas">
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="PaginaCombates">
   <grid id="27dc6" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
@@ -8,18 +8,17 @@
     <properties/>
     <border type="none"/>
     <children>
-      <grid id="71ea" binding="painelPrincipal" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="1b59d" binding="painelPrincipal" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <minimumSize width="800" height="600"/>
-          <toolTipText value=""/>
         </properties>
         <border type="none"/>
         <children>
-          <grid id="d66f2" layout-manager="GridLayoutManager" row-count="10" column-count="8" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+          <grid id="71047" layout-manager="GridLayoutManager" row-count="16" column-count="6" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -35,17 +34,17 @@
             </properties>
             <border type="none"/>
             <children>
-              <grid id="51e30" layout-manager="GridLayoutManager" row-count="8" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+              <grid id="c6f2b" layout-manager="GridLayoutManager" row-count="8" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="0" left="0" bottom="0" right="0"/>
                 <constraints>
-                  <grid row="1" column="0" row-span="9" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                  <grid row="1" column="0" row-span="15" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <background color="-8551544"/>
                 </properties>
                 <border type="none"/>
                 <children>
-                  <component id="c15c" class="javax.swing.JButton" binding="atletasButtonSide">
+                  <component id="5d7d7" class="javax.swing.JButton" binding="atletasButtonSide">
                     <constraints>
                       <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -56,7 +55,7 @@
                       <text value="Atletas"/>
                     </properties>
                   </component>
-                  <component id="aa1a4" class="javax.swing.JButton" binding="estatisticasButtonSide">
+                  <component id="82f1d" class="javax.swing.JButton" binding="estatisticasButtonSide">
                     <constraints>
                       <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -67,7 +66,7 @@
                       <text value="Estatisticas"/>
                     </properties>
                   </component>
-                  <component id="526b3" class="javax.swing.JButton" binding="sobreButtonSide">
+                  <component id="de080" class="javax.swing.JButton" binding="sobreButtonSide">
                     <constraints>
                       <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -78,7 +77,7 @@
                       <text value="Sobre"/>
                     </properties>
                   </component>
-                  <component id="50882" class="javax.swing.JButton" binding="eventosButtonSide">
+                  <component id="60717" class="javax.swing.JButton" binding="eventosButtonSide">
                     <constraints>
                       <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -89,7 +88,7 @@
                       <text value="Eventos"/>
                     </properties>
                   </component>
-                  <component id="64f28" class="javax.swing.JButton" binding="loginButtonSide">
+                  <component id="4bb12" class="javax.swing.JButton" binding="loginButtonSide">
                     <constraints>
                       <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -100,7 +99,7 @@
                       <text value="Login"/>
                     </properties>
                   </component>
-                  <component id="778d5" class="javax.swing.JButton" binding="menuInicialButtonSide">
+                  <component id="c4dac" class="javax.swing.JButton" binding="menuInicialButtonSide">
                     <constraints>
                       <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -111,12 +110,12 @@
                       <text value="Menu Inicial"/>
                     </properties>
                   </component>
-                  <vspacer id="ae951">
+                  <vspacer id="ceb99">
                     <constraints>
                       <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
                     </constraints>
                   </vspacer>
-                  <component id="ac7b2" class="javax.swing.JButton" binding="provasButtonSide">
+                  <component id="af3c" class="javax.swing.JButton" binding="provasButtonSide">
                     <constraints>
                       <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -129,25 +128,25 @@
                   </component>
                 </children>
               </grid>
-              <component id="6bcf7" class="javax.swing.JLabel">
+              <component id="a9149" class="javax.swing.JLabel">
                 <constraints>
-                  <grid row="0" column="2" row-span="1" col-span="6" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="2" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <font name="Consolas" size="28" style="0"/>
                   <text value="Gestor de Torneios"/>
                 </properties>
               </component>
-              <component id="4a6b7" class="javax.swing.JLabel" binding="nomeUser">
+              <component id="cf872" class="javax.swing.JLabel" binding="nomeUser">
                 <constraints>
-                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <font name="Consolas" size="20"/>
                   <text value="NomeUser"/>
                 </properties>
               </component>
-              <component id="1fcc4" class="javax.swing.JLabel" binding="fotoUser">
+              <component id="7cf56" class="javax.swing.JLabel" binding="fotoUser">
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -158,9 +157,44 @@
                   <verticalAlignment value="0"/>
                 </properties>
               </component>
-              <component id="592ed" class="javax.swing.JTable" binding="table1" default-binding="true">
+              <component id="910db" class="javax.swing.JLabel" binding="adicionarEventosButton">
                 <constraints>
-                  <grid row="2" column="2" row-span="1" col-span="6" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                  <grid row="2" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <background color="-13947344"/>
+                  <font name="Consolas" size="18"/>
+                  <foreground color="-13947344"/>
+                  <text value="Selecione o combate"/>
+                </properties>
+              </component>
+              <vspacer id="ce72e">
+                <constraints>
+                  <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </vspacer>
+              <component id="3947f" class="javax.swing.JButton" binding="editarButton">
+                <constraints>
+                  <grid row="13" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <background color="-10100681"/>
+                  <text value="Registar"/>
+                </properties>
+              </component>
+              <vspacer id="67045">
+                <constraints>
+                  <grid row="14" column="4" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </vspacer>
+              <vspacer id="233ae">
+                <constraints>
+                  <grid row="12" column="4" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </vspacer>
+              <component id="5690c" class="javax.swing.JComboBox" binding="combateComboBox">
+                <constraints>
+                  <grid row="3" column="4" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="0" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="50"/>
                   </grid>
                 </constraints>
@@ -170,85 +204,80 @@
                   <verifyInputWhenFocusTarget value="true"/>
                 </properties>
               </component>
-              <component id="56f4c" class="javax.swing.JButton" binding="adicionarProvasButton">
+              <component id="46e8d" class="javax.swing.JLabel" binding="atleta2Label">
                 <constraints>
-                  <grid row="1" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="4" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <background color="-13947344"/>
-                  <font name="Consolas" size="18"/>
-                  <foreground color="-1"/>
-                  <text value="Adicionar Provas"/>
+                  <text value="Atleta2"/>
                 </properties>
               </component>
-              <component id="ca4c1" class="javax.swing.JButton" binding="importarProvasButton">
+              <component id="74e0c" class="javax.swing.JLabel" binding="atleta1Label">
                 <constraints>
-                  <grid row="1" column="6" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="4" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <background color="-13947344"/>
-                  <font name="Consolas" size="18"/>
-                  <foreground color="-1"/>
-                  <text value="Importar Provas"/>
+                  <text value="Atleta1"/>
                 </properties>
               </component>
-              <component id="1711a" class="javax.swing.JComboBox" binding="provaComboBox">
+              <component id="9650a" class="javax.swing.JComboBox" binding="comboBox1" default-binding="true">
                 <constraints>
-                  <grid row="4" column="4" row-span="1" col-span="2" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="5" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties/>
               </component>
-              <component id="13474" class="javax.swing.JButton" binding="combatesButton">
+              <component id="e7537" class="javax.swing.JComboBox" binding="comboBox2" default-binding="true">
                 <constraints>
-                  <grid row="6" column="4" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="5" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="bb61e" class="javax.swing.JTextField" binding="textField1" default-binding="true">
+                <constraints>
+                  <grid row="6" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="e6f50" class="javax.swing.JTextField" binding="textField2" default-binding="true">
+                <constraints>
+                  <grid row="6" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="4cd07" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="5" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <background color="-13947344"/>
-                  <font name="Consolas" size="18"/>
-                  <foreground color="-1"/>
-                  <text value="Combates"/>
+                  <text value="Venceu?"/>
                 </properties>
               </component>
-              <component id="40295" class="javax.swing.JLabel">
+              <component id="cff9f" class="javax.swing.JLabel">
                 <constraints>
-                  <grid row="3" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="5" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <font size="16"/>
-                  <text value="Selecione uma prova"/>
+                  <text value="Venceu?"/>
                 </properties>
               </component>
-              <component id="8147b" class="javax.swing.JButton" binding="gerirInscricoesButton">
+              <component id="d7056" class="javax.swing.JLabel">
                 <constraints>
-                  <grid row="1" column="4" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="6" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <background color="-13947344"/>
-                  <font name="Consolas" size="18"/>
-                  <foreground color="-1"/>
-                  <text value="Gerir Inscrições"/>
+                  <text value="Resultado"/>
                 </properties>
               </component>
-              <component id="acd2f" class="javax.swing.JButton" binding="eliminarProvasButton">
+              <component id="2dca" class="javax.swing.JLabel">
                 <constraints>
-                  <grid row="3" column="7" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="6" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <background color="-13947344"/>
-                  <font name="Consolas" size="18"/>
-                  <foreground color="-1"/>
-                  <text value="Eliminar Provas"/>
-                </properties>
-              </component>
-              <component id="34490" class="javax.swing.JButton" binding="editarProvasButton">
-                <constraints>
-                  <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                </constraints>
-                <properties>
-                  <background color="-13947344"/>
-                  <font name="Consolas" size="18"/>
-                  <foreground color="-1"/>
-                  <text value="Editar Provas"/>
+                  <text value="Resultado"/>
                 </properties>
               </component>
             </children>

@@ -1,2 +1,4 @@
 Antonio Ferreira:Masculino:22/05/1998:Sporting:Português
 João Silva:Masculino:23/07/1999:Porto:Português
+Santino Marella:Masculino:23/07/1999:Benfica:Italiano
+Ana Filipa Silva:Feminino:23/02/1990:Benfica:Português

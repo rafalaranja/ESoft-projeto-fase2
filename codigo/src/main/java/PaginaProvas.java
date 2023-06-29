@@ -1,6 +1,8 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -22,7 +24,8 @@ public class PaginaProvas extends JFrame{
     private JButton eliminarProvasButton;
     private JButton provasButtonSide;
     private JButton gerirInscricoesButton;
-    private JComboBox comboBox1;
+    private JComboBox provaComboBox;
+    private JButton combatesButton;
 
     private void carregarProvas(String[] colunas) {
         // Ler os eventos do arquivo "provas.txt" e atualizar o modelo da tabela
@@ -37,6 +40,23 @@ public class PaginaProvas extends JFrame{
                 modelo.addRow(dados);
             }
             reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void carregarProvasDropbox() {
+        // Ler as provas do arquivo "provas.txt" e atualizar o modelo da ComboBox
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("provas.txt"));
+            String linha;
+            DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
+            while ((linha = reader.readLine()) != null) {
+                String[] dados = linha.split(":");
+                modelo.addElement(dados[0].trim());
+            }
+            reader.close();
+            provaComboBox.setModel(modelo);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -129,6 +149,7 @@ public class PaginaProvas extends JFrame{
 
         table1.setModel(modelo);
         carregarProvas(colunas); // Carregar os eventos do arquivo "provas.txt"
+        carregarProvasDropbox(); // Carregar as provas da ComboBox
 
         //ocultar os botoões caso o user não esteja logado
         if (nomeUser.getText().equals("Guest")) {
@@ -167,6 +188,12 @@ public class PaginaProvas extends JFrame{
         gerirInscricoesButton.addActionListener(e -> {
             GerirInscricoes gerirInscricoes = new GerirInscricoes();
             gerirInscricoes.setVisible(true);
+            dispose();
+        });
+
+        combatesButton.addActionListener(e -> {
+            PaginaCombates paginaCombates = new PaginaCombates((String) provaComboBox.getSelectedItem());
+            paginaCombates.setVisible(true);
             dispose();
         });
     }
