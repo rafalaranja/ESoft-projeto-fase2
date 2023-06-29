@@ -50,7 +50,7 @@ public class AdicionarProva extends JFrame{
         String genero = (String) generoComboBox.getSelectedItem();
         String catPeso = (String) catPesoComboBox.getSelectedItem();
         String evento = (String) eventoComboBox.getSelectedItem();
-        Prova prova = new Prova(nome, genero, catPeso, evento);
+        Prova prova = new Prova(nome, genero, catPeso, evento, ",");
 
 
             Prova.guardarProva(prova);

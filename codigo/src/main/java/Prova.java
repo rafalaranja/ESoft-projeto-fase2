@@ -9,17 +9,18 @@ public class Prova {
     private String genero;
     private String categoriaPeso;
 
-    public Prova(String nome, String genero, String categoriaPeso, String evento) {
+    public Prova(String nome, String genero, String categoriaPeso, String evento, String atletas) {
         this.nome = nome;
         this.evento = evento;
         this.genero = genero;
         this.categoriaPeso = categoriaPeso;
+        this.atletas = atletas;
     }
 
     public static void guardarProva(Prova prova) {
         try {
             FileWriter writer = new FileWriter("provas.txt", true);
-            writer.write(prova.nome + ":" + prova.evento + ":" + prova.genero + ":" + prova.categoriaPeso + ":" + "\n");
+            writer.write(prova.nome + ":" + prova.evento + ":" + prova.genero + ":" + prova.categoriaPeso + ":" + prova.atletas + "\n");
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
