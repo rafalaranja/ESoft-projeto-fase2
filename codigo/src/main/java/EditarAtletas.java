@@ -14,7 +14,6 @@ public class EditarAtletas extends JFrame{
     private JButton menuInicialButtonSide;
     private JLabel nomeUser;
     private JLabel fotoUser;
-    private JLabel adicionarEventosButton;
     private JButton editarButton;
     private JTextField nomeTextField;
     private JComboBox generoComboBox;
@@ -114,7 +113,6 @@ public class EditarAtletas extends JFrame{
         editarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 String eventoSelecionado = (String) atletaComboBox.getSelectedItem();
                 if (eventoSelecionado != null) {
                     // Implemente a lógica para editar o evento com as informações dos campos
@@ -147,12 +145,12 @@ public class EditarAtletas extends JFrame{
 
                         // Substituir o arquivo original pelo arquivo temporário
                         if (arquivoAtletas.delete() && arquivoTemp.renameTo(arquivoAtletas)) {
-                            JOptionPane.showMessageDialog(null, "Evento editado com sucesso!");
-                            PaginaEventos paginaEventos = new PaginaEventos();
-                            paginaEventos.setVisible(true);
+                            JOptionPane.showMessageDialog(null, "Atleta editado com sucesso!");
+                            PaginaAtletas paginaAtletas = new PaginaAtletas();
+                            paginaAtletas.setVisible(true);
                             dispose();
                         } else {
-                            JOptionPane.showMessageDialog(null, "Falha ao editar o evento.");
+                            JOptionPane.showMessageDialog(null, "Falha ao editar o atleta.");
                         }
                     } catch (IOException ex) {
                         ex.printStackTrace();
@@ -191,9 +189,9 @@ public class EditarAtletas extends JFrame{
             }
 
             private String[] obterInformacoesAtleta(String atleta) {
-                // obter as informações do evento com base no nome do evento
+                // obter as informações do atletas com base no nome do atletas
                 try {
-                    BufferedReader reader = new BufferedReader(new FileReader("eventos.txt"));
+                    BufferedReader reader = new BufferedReader(new FileReader("atletas.txt"));
                     String linha;
                     while ((linha = reader.readLine()) != null) {
                         String[] dados = linha.split(":");

@@ -85,7 +85,7 @@ public class ImportarAtletas extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fileChooser = new JFileChooser();
-                fileChooser.setDialogTitle("Importar Eventos");
+                fileChooser.setDialogTitle("Importar Atletas");
                 fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
                 fileChooser.setMultiSelectionEnabled(true);
 
@@ -112,10 +112,10 @@ public class ImportarAtletas extends JFrame{
             }
 
             writer.close();
-            JOptionPane.showMessageDialog(null, "Eventos importados com sucesso!");
+            JOptionPane.showMessageDialog(null, "Atletas importados com sucesso!");
         } catch (IOException ex) {
             ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Erro ao importar eventos.");
+            JOptionPane.showMessageDialog(null, "Erro ao importar atletas.");
         }
     }
 }

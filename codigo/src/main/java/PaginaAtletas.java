@@ -160,6 +160,15 @@ public class PaginaAtletas extends JFrame{
             }
         });
 
+        importarAtletasButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ImportarAtletas ImportarAtletas = new ImportarAtletas();
+                ImportarAtletas.setVisible(true);
+                dispose();
+            }
+        });
+
         if (nomeUser.getText().equals("Guest")) {
             importarAtletasButton.setVisible(false);
             adicionarAtletasButton.setVisible(false);

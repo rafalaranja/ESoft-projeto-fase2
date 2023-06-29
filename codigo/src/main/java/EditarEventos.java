@@ -52,7 +52,8 @@ public class EditarEventos extends JFrame{
             nomeUser.setText(Login.nomeUser); //mostrar o nome do user logado
         } else {
             nomeUser.setText("Guest");
-        }if (!nomeUser.getText().equals("Guest")){
+        }
+        if (!nomeUser.getText().equals("Guest")){
             loginButtonSide.setVisible(false);
         }
 

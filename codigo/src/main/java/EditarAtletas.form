@@ -146,17 +146,6 @@
                   <verticalAlignment value="0"/>
                 </properties>
               </component>
-              <component id="39214" class="javax.swing.JLabel" binding="adicionarEventosButton">
-                <constraints>
-                  <grid row="2" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-                </constraints>
-                <properties>
-                  <background color="-13947344"/>
-                  <font name="Consolas" size="18"/>
-                  <foreground color="-13947344"/>
-                  <text value="Selecione o Evento a Editar"/>
-                </properties>
-              </component>
               <vspacer id="f84fb">
                 <constraints>
                   <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
