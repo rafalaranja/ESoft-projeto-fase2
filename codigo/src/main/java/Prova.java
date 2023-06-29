@@ -19,7 +19,7 @@ public class Prova {
     public static void guardarProva(Prova prova) {
         try {
             FileWriter writer = new FileWriter("provas.txt", true);
-            writer.write(prova.nome + ":" + prova.evento + ":" + prova.genero + ":" + prova.categoriaPeso + ":" + prova.atletas + "\n");
+            writer.write(prova.nome + ":" + prova.evento + ":" + prova.genero + ":" + prova.categoriaPeso + ":" + "\n");
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
