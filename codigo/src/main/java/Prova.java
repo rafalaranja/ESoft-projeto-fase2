@@ -9,12 +9,11 @@ public class Prova {
     private String genero;
     private String categoriaPeso;
 
-    public Prova(String nome, String genero, String categoriaPeso, String evento, String atletas) {
+    public Prova(String nome, String genero, String categoriaPeso, String evento) {
         this.nome = nome;
         this.evento = evento;
         this.genero = genero;
         this.categoriaPeso = categoriaPeso;
-        this.atletas = atletas;
     }
 
     public static void guardarProva(Prova prova) {
